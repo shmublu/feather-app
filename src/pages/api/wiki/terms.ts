@@ -1,0 +1,48 @@
+// src/pages/api/wiki/terms.ts
+
+import fs from 'fs';
+import path from 'path';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import type { WikiTerms } from '../../../types';
+
+type ErrorResponse = {
+  message: string;
+};
+
+type SuccessResponse = {
+  message: string;
+  terms: WikiTerms;
+};
+
+const termsFilePath = path.join(process.cwd(), 'src', 'data', 'wiki', 'terms.json');
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<WikiTerms | SuccessResponse | ErrorResponse>
+) {
+  if (req.method === 'GET') {
+    try {
+      const fileContents = fs.readFileSync(termsFilePath, 'utf8');
+      const terms: WikiTerms = JSON.parse(fileContents);
+      res.status(200).json(terms);
+    } catch (error) {
+      console.error('Error reading wiki terms:', error);
+      res.status(500).json({ message: 'Error reading wiki terms' });
+    }
+  } else if (req.method === 'POST') {
+    try {
+      const newTerms: WikiTerms = req.body;
+      if (typeof newTerms !== 'object') {
+        return res.status(400).json({ message: 'Invalid payload: terms object expected.' });
+      }
+      fs.writeFileSync(termsFilePath, JSON.stringify(newTerms, null, 2), 'utf8');
+      res.status(200).json({ message: 'Wiki terms saved successfully', terms: newTerms });
+    } catch (error) {
+      console.error('Error saving wiki terms:', error);
+      res.status(500).json({ message: 'Error saving wiki terms' });
+    }
+  } else {
+    res.setHeader('Allow', ['GET', 'POST']);
+    res.status(405).end(`Method ${req.method} Not Allowed`);
+  }
+}

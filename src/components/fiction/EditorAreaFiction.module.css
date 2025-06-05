@@ -1,0 +1,172 @@
+.editorArea {
+  flex: 1;
+  background-color: #0f172a; /* bg-slate-900 */
+  overflow-y: auto;
+  color: #cbd5e1; /* text-slate-300 */
+}
+
+.toolbar {
+  position: sticky;
+  top: 0; /* Should be below main header if main header is also sticky */
+  background-color: rgba(15, 23, 42, 0.8); /* bg-slate-900/80 */
+  backdrop-filter: blur(10px);
+  padding: 1rem; /* p-4 */
+  border-bottom: 1px solid #334155; /* border-slate-700 */
+  z-index: 10;
+}
+.toolbarTitleSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.chapterTitle {
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 600; /* font-semibold */
+  color: #f1f5f9; /* text-slate-100 */
+}
+.titleInput {
+    font-size: 1.5rem;
+    font-weight: 600;
+    background-color: transparent;
+    border: none;
+    color: #f1f5f9;
+    padding: 0.25rem;
+}
+.titleInput:focus {
+    outline: 1px solid #a78bfa;
+    border-radius: 0.25rem;
+}
+
+.toolbarInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* space-x-2 */
+}
+.wordCount {
+  font-size: 0.875rem; /* text-sm */
+  color: #94a3b8; /* text-slate-400 */
+}
+.editIcon {
+  color: #a78bfa; /* text-purple-400 */
+  cursor: pointer;
+}
+.editIcon:hover {
+  color: #c084fc; /* text-purple-300 */
+}
+
+.contentSection {
+  padding: 1rem; /* p-4 */
+}
+.sceneCard {
+  background-color: #1e293b; /* bg-slate-800 */
+  border-radius: 0.5rem; /* rounded-lg */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 1px 2px rgba(0,0,0,0.06); /* shadow */
+}
+.sceneHeader {
+  padding: 0.75rem; /* p-3 */
+  border-bottom: 1px solid #334155; /* border-slate-700 */
+}
+.sceneTitle {
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 500; /* font-medium */
+  color: #e2e8f0; /* text-slate-200 */
+}
+.tagsContainer {
+  margin-top: 0.5rem; /* mt-2 */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem; /* gap-2 */
+}
+.tag {
+  font-size: 0.75rem; /* text-xs */
+  padding: 0.125rem 0.5rem; /* px-2 py-0.5 */
+  border-radius: 9999px; /* rounded-full */
+  /* Example tag color - you can vary these */
+  background-color: rgba(239, 68, 68, 0.2); /* bg-red-500/20 */
+  color: #fca5a5; /* text-red-300 */
+  border: 1px solid rgba(239, 68, 68, 0.3); /* border-red-500/30 */
+  cursor: default;
+}
+.tag:hover {
+    opacity: 0.8;
+}
+.addLabelButton {
+  font-size: 0.75rem; /* text-xs */
+  color: #94a3b8; /* text-slate-400 */
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.addLabelButton:hover {
+  color: #a78bfa; /* text-purple-300 */
+}
+
+.contentViewerText {
+  padding: 1rem 1.5rem; /* p-6 md:p-8 based on original ContentViewer */
+  color: #cbd5e1; /* text-slate-300 */
+  line-height: 1.75; /* leading-relaxed */
+  white-space: pre-wrap; /* Allows newlines and spaces to be preserved */
+}
+.contentViewerText :global(p) { /* Target p tags rendered by ReactMarkdown */
+    margin-bottom: 1em;
+}
+
+
+.editTextarea {
+  width: calc(100% - 2rem); /* Full width within padding */
+  margin: 1rem;
+  padding: 0.75rem;
+  background-color: #283447; /* Slightly lighter slate for textarea */
+  color: #e2e8f0; /* text-slate-200 */
+  border: 1px solid #475569; /* border-slate-600 */
+  border-radius: 0.375rem; /* rounded-md */
+  font-family: inherit;
+  font-size: 1rem;
+  line-height: 1.6;
+  min-height: 300px;
+}
+.editTextarea:focus {
+  border-color: #a78bfa; /* focus:border-purple-500 */
+  outline: 1px solid #a78bfa; /* focus:ring-1 focus:ring-purple-500 */
+}
+.saveButton {
+    display: block;
+    margin: 0 1rem 1rem auto; /* Aligns to right, above footer */
+    background-color: #7c3aed;
+    color: white;
+}
+.saveButton:hover {
+    background-color: #6d28d9;
+}
+
+
+.sceneFooter {
+  padding: 0.75rem; /* p-3 */
+  border-top: 1px solid #334155; /* border-slate-700 */
+  text-align: right;
+}
+.newSceneButton {
+  font-size: 0.875rem; /* text-sm */
+  color: #a78bfa; /* text-purple-400 */
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-left: auto; /* Aligns to the right */
+}
+.newSceneButton:hover {
+  color: #c084fc; /* text-purple-300 */
+}
+
+.termHighlight {
+  color: #c084fc; /* text-purple-400 */
+  text-decoration: underline;
+  text-decoration-color: rgba(139, 92, 246, 0.5); /* decoration-purple-500/50 */
+  transition: color 0.15s ease-in-out, text-decoration-color 0.15s ease-in-out;
+  cursor: pointer;
+}
+.termHighlight:hover {
+  color: #d8b4fe; /* hover:text-purple-300 */
+  text-decoration-color: #c084fc; /* hover:decoration-purple-400 */
+}

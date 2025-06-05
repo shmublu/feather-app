@@ -1,0 +1,119 @@
+.editorContainer {
+  flex: 1;
+  padding: 1.5rem; /* p-6 */
+  background-color: #0f172a; /* bg-slate-900 */
+  overflow-y: auto;
+  color: #cbd5e1; /* text-slate-300 */
+}
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    color: #94a3b8; /* slate-400 */
+}
+.emptyState p {
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid #334155; /* border-slate-700 */
+  padding-bottom: 1rem;
+}
+.termTitle {
+  font-size: 1.75rem; /* text-3xl */
+  font-weight: 600;
+  color: #e2e8f0; /* text-slate-100 */
+}
+.titleInput {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    background-color: transparent;
+    border: none;
+    padding: 0.25rem;
+}
+.titleInput:focus {
+    outline: 1px solid #a78bfa;
+    border-radius: 0.25rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem; /* space-x-2 */
+}
+.actionButton {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem; /* space-x-1 for icon and text */
+  padding: 0.4rem 0.8rem;
+  font-size: 0.875rem;
+}
+.actionButton svg {
+    width: 1rem; /* size 16 */
+    height: 1rem;
+}
+.saveButton {
+  background-color: #16a34a; /* green-600 */
+  color: white;
+}
+.saveButton:hover {
+  background-color: #15803d; /* green-700 */
+}
+.deleteButton {
+  background-color: #dc2626; /* red-600 */
+  color: white;
+}
+.deleteButton:hover {
+  background-color: #b91c1c; /* red-700 */
+}
+.cancelButton {
+    background-color: #64748b; /* slate-500 */
+    color: white;
+}
+.cancelButton:hover {
+    background-color: #475569; /* slate-600 */
+}
+.addNewButtonFixed { /* Specific for the button in the header when not editing */
+    background-color: #7c3aed; /* purple-600 */
+    color: white;
+}
+.addNewButtonFixed:hover {
+    background-color: #6d28d9;
+}
+
+
+.content {
+  /* Layout for form fields */
+}
+.fieldGroup {
+  margin-bottom: 1.5rem;
+}
+.label {
+  display: block;
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500; /* font-medium */
+  color: #94a3b8; /* text-slate-400 */
+  margin-bottom: 0.5rem;
+}
+.fieldValue {
+  color: #cbd5e1; /* text-slate-300 */
+  line-height: 1.6;
+  padding: 0.5rem 0; /* for consistent spacing with inputs */
+}
+.descriptionText {
+    white-space: pre-wrap; /* To respect newlines in description */
+}
+.textarea {
+  width: 100%;
+  min-height: 150px;
+  line-height: 1.6;
+}

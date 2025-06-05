@@ -1,0 +1,30 @@
+{
+  "Da Solis": {
+    "description": "Da Solis is the Celestial Priest of the Solis Verio branch, based on Rahka. Known for his stern demeanor and unwavering dedication to recovering sacred texts.",
+    "category": "Character"
+  },
+  "Solis Verio": {
+    "description": "One of the major factions within the Galactic Order, specializing in ancient lore, celestial navigation, and spiritual practices. They have a strong presence on planets like Rahka and Garantuam.",
+    "category": "Faction"
+  },
+  "Rahka": {
+    "description": "A planet characterized by its three suns, serving as the spiritual nucleus of the Solis Verio civilization. It's a place of immense knowledge and ancient temples.",
+    "category": "Location"
+  },
+  "Galactic Wars": {
+    "description": "A series of ancient conflicts that shaped the current political landscape of the galaxy, leaving behind remnants of powerful technologies and deep-seated rivalries.",
+    "category": "Event"
+  },
+  "Celestial Priest": {
+    "description": "A high-ranking title within the Solis Verio, responsible for interpreting celestial events, safeguarding sacred texts, and guiding the spiritual development of its members.",
+    "category": "Title"
+  },
+  "Garantuam": {
+    "description": "A rugged, untamed planet that serves as the militant heart of the Solis Vero. Its harsh landscapes are used for training and defense.",
+    "category": "Location"
+  },
+  "sacred texts": {
+    "description": "Ancient scriptures and documents holding significant religious or historical importance to the Solis Verio.",
+    "category": "Item"
+  }
+}
