@@ -2,12 +2,11 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
-import { BookOpen } from 'lucide-react';
+import { Menu, X, BookOpen } from 'lucide-react';
 import type { NextPage } from 'next';
 
 import EditorAreaFiction from '../components/fiction/EditorAreaFiction';
 import SidebarTabs from '../components/common/SidebarTabs';
-import WikiEditor from '../components/wiki/WikiEditor';
 import Tooltip from '../components/common/Tooltip';
 import type { FictionData, KnownTerms, WikiTerms, HoveredTermInfo } from '../types';
 
@@ -18,7 +17,7 @@ const HomePage: NextPage = () => {
   const [wikiTerms, setWikiTerms] = useState<WikiTerms>({});
   const [selectedTermKey, setSelectedTermKey] = useState<string | null>(null);
   const [isTooltipVisible, setIsTooltipVisible] = useState<boolean>(false);
-  const [isWikiOpen, setIsWikiOpen] = useState<boolean>(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [activeSidebarTab, setActiveSidebarTab] = useState<'fiction' | 'wiki'>('fiction');
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -71,29 +70,6 @@ const HomePage: NextPage = () => {
     }
   };
 
-  const handleSaveTerms = async (updatedTerms: WikiTerms): Promise<boolean> => {
-    try {
-      const res = await fetch('/api/wiki/terms', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(updatedTerms),
-      });
-      if (!res.ok) throw new Error('Failed to save terms');
-      const result = await res.json();
-      setWikiTerms(result.terms);
-      const formatted: KnownTerms = {};
-      for (const term in result.terms) {
-        formatted[term] = result.terms[term].description;
-      }
-      setKnownTerms(formatted);
-      alert('Wiki terms saved!');
-      return true;
-    } catch (error) {
-      console.error('Save error:', error);
-      alert('Failed to save wiki terms.');
-      return false;
-    }
-  };
 
   const handleTermHover = useCallback((termKey: string, x: number, y: number) => {
     const description = knownTerms[termKey] || 'No description available.';
@@ -107,13 +83,13 @@ const HomePage: NextPage = () => {
 
   const handleTermClick = useCallback((termKey: string) => {
     setSelectedTermKey(termKey);
-    setIsWikiOpen(true);
+    setIsSidebarOpen(true);
     setActiveSidebarTab('wiki');
   }, []);
 
   const handleSelectTerm = (termKey: string) => {
     setSelectedTermKey(termKey);
-    setIsWikiOpen(true);
+    setIsSidebarOpen(true);
     setActiveSidebarTab('wiki');
   };
 
@@ -139,13 +115,16 @@ const HomePage: NextPage = () => {
         zIndex: 40
       }}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
+          <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} style={{ marginRight: '0.5rem', color: '#cbd5e1', background: 'none', border: 'none', cursor: 'pointer' }} className="md-hidden">
+            {isSidebarOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
           <h1 style={{ fontSize: '1.25rem', fontWeight: 600, color: '#a78bfa' }}>
             Feather / {fictionData.frontmatter?.title || 'Untitled'}
           </h1>
         </div>
         <button
           onClick={() => {
-            setIsWikiOpen(!isWikiOpen);
+            setIsSidebarOpen(true);
             setActiveSidebarTab('wiki');
           }}
           style={{ color: '#cbd5e1', background: 'none', border: 'none', cursor: 'pointer' }}
@@ -155,7 +134,7 @@ const HomePage: NextPage = () => {
       </header>
       <div style={{ display: 'flex', flex: 1, overflow: 'hidden', position: 'relative' }}>
         <SidebarTabs
-          isMobileMenuOpen={false}
+          isMobileMenuOpen={isSidebarOpen}
           fictionTitle={fictionData.frontmatter?.title || 'Untitled Document'}
           fictionWordCount={fictionData.wordCount}
           wikiTerms={wikiTerms}
@@ -164,6 +143,13 @@ const HomePage: NextPage = () => {
           activeTab={activeSidebarTab}
           onTabChange={setActiveSidebarTab}
         />
+        {isSidebarOpen && (
+          <div
+            style={{ position: 'fixed', inset: 0, zIndex: 20, backgroundColor: 'rgba(0,0,0,0.3)' }}
+            className="md-hidden"
+            onClick={() => setIsSidebarOpen(false)}
+          ></div>
+        )}
         <EditorAreaFiction
           initialContent={fictionData.markdownContent}
           initialFrontmatter={fictionData.frontmatter}
@@ -173,17 +159,6 @@ const HomePage: NextPage = () => {
           onTermClick={handleTermClick}
           onSave={handleSaveContent}
         />
-        {isWikiOpen && (
-          <div style={{ display: 'flex', width: '28rem', borderLeft: '1px solid #334155' }}>
-            <WikiEditor
-              terms={wikiTerms}
-              selectedTermKey={selectedTermKey}
-              onSave={handleSaveTerms}
-              onSelectTerm={setSelectedTermKey}
-              setTerms={setWikiTerms}
-            />
-          </div>
-        )}
       </div>
       <Tooltip termInfo={hoveredTermInfo} isVisible={isTooltipVisible} />
     </div>
