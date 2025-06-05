@@ -1,33 +1,11 @@
 // src/components/fiction/EditorAreaFiction.tsx
 
-import React, { useState, useMemo, useCallback, useEffect } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import { Edit3, PlusCircle, X } from 'lucide-react';
 import styles from './EditorAreaFiction.module.css';
 import type { Frontmatter, KnownTerms } from '../../types';
-
-// TermHighlight Component Props
-interface TermHighlightProps {
-  children: React.ReactNode;
-  termKey: string;
-  onMouseEnter: (termKey: string, x: number, y: number) => void;
-  onMouseLeave: () => void;
-}
-
-const TermHighlight: React.FC<TermHighlightProps> = ({ children, termKey, onMouseEnter, onMouseLeave }) => {
-  const handleMouseEnter = (e: React.MouseEvent<HTMLSpanElement>) => {
-    onMouseEnter(termKey, e.clientX, e.clientY);
-  };
-  return (
-    <span
-      className={styles.termHighlight}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={onMouseLeave}
-    >
-      {children}
-    </span>
-  );
-};
 
 // EditorAreaFiction Component Props
 interface EditorAreaFictionProps {
@@ -36,6 +14,7 @@ interface EditorAreaFictionProps {
   knownTerms: KnownTerms;
   onTermHover: (termKey: string, x: number, y: number) => void;
   onTermLeave: () => void;
+  onTermClick?: (termKey: string) => void;
   onSave: (newMarkdownContent: string, newFrontmatter: Frontmatter) => Promise<void>;
 }
 
@@ -45,6 +24,7 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
   knownTerms,
   onTermHover,
   onTermLeave,
+  onTermClick,
   onSave,
 }) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -61,6 +41,38 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
   }, [initialContent, initialFrontmatter]);
 
   const wordCount = useMemo(() => editableContent.split(/\s+/).filter(Boolean).length, [editableContent]);
+
+  const processedContent = useMemo(() => {
+    const terms = Object.keys(knownTerms);
+    if (terms.length === 0) return editableContent;
+    const escaped = terms.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+    const regex = new RegExp(`\\b(${escaped.join('|')})\\b`, 'gi');
+    return editableContent.replace(regex, match => `<span data-term="${match}">${match}</span>`);
+  }, [editableContent, knownTerms]);
+
+  const markdownComponents = useMemo(() => ({
+    span: ({ children, ...props }: React.HTMLAttributes<HTMLSpanElement> & { 'data-term'?: string }) => {
+      const term = props['data-term'];
+      if (term) {
+        const handleEnter = (e: React.MouseEvent<HTMLSpanElement>) => {
+          onTermHover(term, e.clientX, e.clientY);
+        };
+        const handleClick = () => onTermClick?.(term);
+        return (
+          <span
+            {...props}
+            className={styles.termHighlight}
+            onMouseEnter={handleEnter}
+            onMouseLeave={onTermLeave}
+            onClick={handleClick}
+          >
+            {children}
+          </span>
+        );
+      }
+      return <span {...props}>{children}</span>;
+    },
+  }), [onTermHover, onTermLeave, onTermClick]);
 
   const handleSave = () => {
     const updatedFrontmatter: Frontmatter = { ...editableFrontmatter, title, tags };
@@ -132,7 +144,7 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
               />
             ) : (
               <div className={styles.contentViewerText}>
-                 <ReactMarkdown>{editableContent}</ReactMarkdown>
+                 <ReactMarkdown rehypePlugins={[rehypeRaw]} components={markdownComponents}>{processedContent}</ReactMarkdown>
               </div>
             )}
              {isEditing && (
