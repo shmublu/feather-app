@@ -1,30 +1,26 @@
 {
-  "Da Solis": {
-    "description": "Da Solis is the Celestial Priest of the Solis Verio branch, based on Rahka. Known for his stern demeanor and unwavering dedication to recovering sacred texts.",
+  "Character: Main Protagonist": {
+    "description": "Placeholder for the story's central hero.",
     "category": "Character"
   },
-  "Solis Verio": {
-    "description": "One of the major factions within the Galactic Order, specializing in ancient lore, celestial navigation, and spiritual practices. They have a strong presence on planets like Rahka and Garantuam.",
-    "category": "Faction"
+  "Character: Main Antagonist": {
+    "description": "Placeholder for the primary opposing force.",
+    "category": "Character"
   },
-  "Rahka": {
-    "description": "A planet characterized by its three suns, serving as the spiritual nucleus of the Solis Verio civilization. It's a place of immense knowledge and ancient temples.",
+  "Location: Capital City": {
+    "description": "Major setting of the plot where many events take place.",
     "category": "Location"
   },
-  "Galactic Wars": {
-    "description": "A series of ancient conflicts that shaped the current political landscape of the galaxy, leaving behind remnants of powerful technologies and deep-seated rivalries.",
+  "Object: Mysterious Artifact": {
+    "description": "Important item that drives the narrative forward.",
+    "category": "Object"
+  },
+  "Event: Civil Uprising": {
+    "description": "A pivotal event that changes the world order.",
     "category": "Event"
   },
-  "Celestial Priest": {
-    "description": "A high-ranking title within the Solis Verio, responsible for interpreting celestial events, safeguarding sacred texts, and guiding the spiritual development of its members.",
-    "category": "Title"
-  },
-  "Garantuam": {
-    "description": "A rugged, untamed planet that serves as the militant heart of the Solis Vero. Its harsh landscapes are used for training and defense.",
-    "category": "Location"
-  },
-  "sacred texts": {
-    "description": "Ancient scriptures and documents holding significant religious or historical importance to the Solis Verio.",
-    "category": "Item"
+  "Trait: Impulsive": {
+    "description": "Used to describe a character who acts quickly without planning.",
+    "category": "Trait"
   }
 }

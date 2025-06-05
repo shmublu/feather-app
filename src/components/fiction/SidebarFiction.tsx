@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import styles from "./SidebarFiction.module.css";
 import {
-  BookOpen,
   Users,
   MapPin,
   Package,

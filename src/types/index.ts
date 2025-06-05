@@ -33,3 +33,10 @@ export interface HoveredTermInfo {
   x: number;
   y: number;
 }
+
+export interface EditSuggestion {
+  sentence: string;
+  reason: string;
+  priority?: number;
+  priorityReason?: string;
+}
