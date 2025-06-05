@@ -1,8 +1,9 @@
 // src/components/fiction/EditorAreaFiction.tsx
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
+import { marked } from 'marked';
 import { Edit3, PlusCircle, X } from 'lucide-react';
 import styles from './EditorAreaFiction.module.css';
 import type { Frontmatter, KnownTerms } from '../../types';
@@ -27,11 +28,13 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
   onTermClick,
   onSave,
 }) => {
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+  // Start in editing mode so users can modify the text immediately
+  const [isEditing, setIsEditing] = useState<boolean>(true);
   const [editableContent, setEditableContent] = useState<string>(initialContent);
   const [editableFrontmatter, setEditableFrontmatter] = useState<Frontmatter>(initialFrontmatter || {});
   const [title, setTitle] = useState<string>(initialFrontmatter?.title || 'Prologue');
   const [tags, setTags] = useState<string[]>(initialFrontmatter?.tags || []);
+  const editorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setEditableContent(initialContent);
@@ -40,14 +43,19 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
     setTags(initialFrontmatter?.tags || []);
   }, [initialContent, initialFrontmatter]);
 
-  const wordCount = useMemo(() => editableContent.split(/\s+/).filter(Boolean).length, [editableContent]);
+  const wordCount = useMemo(() => {
+    const text = editableContent.replace(/<[^>]+>/g, '');
+    return text.split(/\s+/).filter(Boolean).length;
+  }, [editableContent]);
 
   const processedContent = useMemo(() => {
     const terms = Object.keys(knownTerms);
     if (terms.length === 0) return editableContent;
+    // remove existing highlights before reapplying
+    const clean = editableContent.replace(/<span data-term=".*?">(.*?)<\/span>/gi, '$1');
     const escaped = terms.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
     const regex = new RegExp(`\\b(${escaped.join('|')})\\b`, 'gi');
-    return editableContent.replace(regex, match => `<span data-term="${match}">${match}</span>`);
+    return clean.replace(regex, match => `<span data-term="${match}">${match}</span>`);
   }, [editableContent, knownTerms]);
 
   const markdownComponents = useMemo(() => ({
@@ -76,7 +84,9 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
 
   const handleSave = () => {
     const updatedFrontmatter: Frontmatter = { ...editableFrontmatter, title, tags };
-    onSave(editableContent, updatedFrontmatter);
+    const htmlContent = editorRef.current?.innerHTML || editableContent;
+    setEditableContent(htmlContent);
+    onSave(htmlContent, updatedFrontmatter);
     setIsEditing(false);
   };
 
@@ -136,11 +146,13 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
             </div>
 
             {isEditing ? (
-              <textarea
-                className={styles.editTextarea}
-                value={editableContent}
-                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setEditableContent(e.target.value)}
-                rows={20}
+              <div
+                ref={editorRef}
+                className={styles.contentViewerText}
+                contentEditable
+                suppressContentEditableWarning
+                onInput={() => setEditableContent(editorRef.current?.innerHTML || '')}
+                dangerouslySetInnerHTML={{ __html: marked(processedContent) }}
               />
             ) : (
               <div className={styles.contentViewerText}>
