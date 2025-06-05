@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import Head from 'next/head';
-import { Menu, X, BookOpen } from 'lucide-react';
+import { BookOpen } from 'lucide-react';
 import type { NextPage } from 'next';
 
 import SidebarFiction from '../components/fiction/SidebarFiction';
@@ -115,9 +115,6 @@ const HomePage: NextPage = () => {
     setSelectedTermKey(termKey);
   };
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
 
   if (isLoading) {
     return <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>Loading editor...</div>;
