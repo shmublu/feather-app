@@ -13,8 +13,8 @@ interface SidebarTabsProps {
   wikiTerms: WikiTerms;
   selectedTermKey: string | null;
   onSelectTerm: (termKey: string) => void;
-  activeTab: 'fiction' | 'wiki';
-  onTabChange: (tab: 'fiction' | 'wiki') => void;
+  activeTab: 'editor' | 'wiki';
+  onTabChange: (tab: 'editor' | 'wiki') => void;
 }
 
 const SidebarTabs: React.FC<SidebarTabsProps> = ({
@@ -32,10 +32,10 @@ const SidebarTabs: React.FC<SidebarTabsProps> = ({
     <div className={`${styles.wrapper} ${isMobileMenuOpen ? styles.open : styles.closed}`}>
       <div className={styles.tabHeader}>
         <button
-          className={`${styles.tabButton} ${activeTab === 'fiction' ? styles.activeTab : ''}`}
-          onClick={() => onTabChange('fiction')}
+          className={`${styles.tabButton} ${activeTab === 'editor' ? styles.activeTab : ''}`}
+          onClick={() => onTabChange('editor')}
         >
-          Fiction
+          Editor
         </button>
         <button
           className={`${styles.tabButton} ${activeTab === 'wiki' ? styles.activeTab : ''}`}
@@ -45,7 +45,7 @@ const SidebarTabs: React.FC<SidebarTabsProps> = ({
         </button>
       </div>
       <div className={styles.tabContent}>
-        {activeTab === 'fiction' ? (
+        {activeTab === 'editor' ? (
           <SidebarFiction
             isMobileMenuOpen={true}
             title={fictionTitle}

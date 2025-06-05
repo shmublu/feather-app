@@ -44,7 +44,7 @@ const SidebarFiction: React.FC<SidebarFictionProps> = ({
       `}
     >
       <div className={styles.header}>
-        <h1 className={styles.title}>Feather</h1>
+        <h1 className={styles.title}>Editor</h1>
         <p className={styles.subtitle}>
           {title} – {currentWordCount} words
         </p>
