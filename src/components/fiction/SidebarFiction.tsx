@@ -8,14 +8,17 @@ interface SidebarFictionProps {
   isMobileMenuOpen: boolean;
   title: string;
   currentWordCount: number;
+  activeCategory: string;
+  onCategorySelect: (category: string) => void;
+  categoryCounts: Record<string, number>;
 }
 
-const SidebarFiction: React.FC<SidebarFictionProps> = ({ isMobileMenuOpen, title, currentWordCount }) => {
+const SidebarFiction: React.FC<SidebarFictionProps> = ({ isMobileMenuOpen, title, currentWordCount, activeCategory, onCategorySelect, categoryCounts }) => {
   const navItems = [
-    { name: "Codex", icon: BookOpen, count: 10, active: true, subItems: [{ name: "All", count: 10 }] },
-    { name: "Characters", icon: Users, count: 3 },
-    { name: "Locations", icon: MapPin, count: 2 },
-    { name: "Objects/Items", icon: Package, count: 2 },
+    { name: "All", icon: BookOpen },
+    { name: "Characters", icon: Users },
+    { name: "Locations", icon: MapPin },
+    { name: "Objects/Items", icon: Package },
   ];
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,17 +51,25 @@ const SidebarFiction: React.FC<SidebarFictionProps> = ({ isMobileMenuOpen, title
 
       <nav className={styles.nav}>
         <ul>
-          {navItems.map((item) => (
-            <li key={item.name} className={styles.navItem}>
-              <a href="#" className={`${styles.navLink} ${item.active ? styles.navLinkActive : ''}`}>
-                <div className={styles.navLinkContent}>
-                  <item.icon className={`icon ${item.active ? styles.navIconActive : styles.navIcon}`} />
-                  <span>{item.name}</span>
-                </div>
-                {item.count !== undefined && <span className={styles.navCount}>{item.count}</span>}
-              </a>
-            </li>
-          ))}
+          {navItems.map((item) => {
+            const active = item.name === activeCategory;
+            const Count = categoryCounts[item.name] ?? 0;
+            const Icon = item.icon;
+            return (
+              <li key={item.name} className={styles.navItem}>
+                <button
+                  className={`${styles.navLink} ${active ? styles.navLinkActive : ''}`}
+                  onClick={() => onCategorySelect(item.name)}
+                >
+                  <div className={styles.navLinkContent}>
+                    <Icon className={`icon ${active ? styles.navIconActive : styles.navIcon}`} />
+                    <span>{item.name}</span>
+                  </div>
+                  <span className={styles.navCount}>{Count}</span>
+                </button>
+              </li>
+            );
+          })}
         </ul>
       </nav>
     </aside>

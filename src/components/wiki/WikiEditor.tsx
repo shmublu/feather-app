@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import styles from './WikiEditor.module.css';
-import { PlusCircle, Save, Trash2, Edit2 } from 'lucide-react';
+import { PlusCircle, Save, Trash2 } from 'lucide-react';
 import type { WikiTerms } from '../../types';
 
 interface WikiEditorProps {
@@ -14,7 +14,7 @@ interface WikiEditorProps {
 }
 
 const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave, onSelectTerm, setTerms }) => {
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = useState<boolean>(true);
   const [currentTerm, setCurrentTerm] = useState<string>('');
   const [currentDescription, setCurrentDescription] = useState<string>('');
   const [currentCategory, setCurrentCategory] = useState<string>('');
@@ -25,19 +25,15 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
       setCurrentTerm(selectedTermKey);
       setCurrentDescription(terms[selectedTermKey].description || '');
       setCurrentCategory(terms[selectedTermKey].category || '');
-      setIsEditing(false);
+      setIsEditing(true);
     } else if (!selectedTermKey && !isAddingNew) {
       setCurrentTerm('');
       setCurrentDescription('');
       setCurrentCategory('');
-      setIsEditing(false);
+      setIsEditing(true);
     }
   }, [selectedTermKey, terms, isAddingNew]);
 
-  const handleEdit = () => {
-    setIsAddingNew(false);
-    setIsEditing(true);
-  };
 
   const handleSaveEdit = async () => {
     if (!currentTerm.trim()) {
@@ -93,7 +89,7 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
   };
   
   const handleCancel = () => {
-    setIsEditing(false);
+    setIsEditing(true);
     setIsAddingNew(false);
     if (selectedTermKey && terms[selectedTermKey]) {
       setCurrentTerm(selectedTermKey);
@@ -143,21 +139,14 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
             </>
           ) : (
              selectedTermKey && (
-              <>
-                <button className={`button-base ${styles.actionButton}`} onClick={handleEdit}>
-                  <Edit2 size={18} /> Edit
-                </button>
-                <button className={`button-base ${styles.actionButton} ${styles.deleteButton}`} onClick={handleDelete}>
-                  <Trash2 size={18} /> Delete
-                </button>
-              </>
+              <button className={`button-base ${styles.actionButton} ${styles.deleteButton}`} onClick={handleDelete}>
+                <Trash2 size={18} /> Delete
+              </button>
              )
           )}
-           {!isEditing && (
-             <button className={`button-base ${styles.actionButton} ${styles.addNewButtonFixed}`} onClick={handleAddNewStart}>
-                <PlusCircle size={18} /> Add New
-             </button>
-           )}
+          <button className={`button-base ${styles.actionButton} ${styles.addNewButtonFixed}`} onClick={handleAddNewStart}>
+            <PlusCircle size={18} /> Add New
+          </button>
         </div>
       </div>
       <div className={styles.content}>

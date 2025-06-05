@@ -10,16 +10,19 @@ interface SidebarWikiProps {
   onSelectTerm: (termKey: string) => void;
   selectedTermKey: string | null;
   isMobileMenuOpen: boolean;
+  categoryFilter: string;
 }
 
-const SidebarWiki: React.FC<SidebarWikiProps> = ({ terms, onSelectTerm, selectedTermKey, isMobileMenuOpen }) => {
+const SidebarWiki: React.FC<SidebarWikiProps> = ({ terms, onSelectTerm, selectedTermKey, isMobileMenuOpen, categoryFilter }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   const filteredTerms = Object.keys(terms)
-    .filter(key => 
-      key.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      terms[key].description.toLowerCase().includes(searchTerm.toLowerCase())
-    )
+    .filter(key => {
+      const matchesSearch = key.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        terms[key].description.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesCategory = categoryFilter === 'All' || terms[key].category === categoryFilter;
+      return matchesSearch && matchesCategory;
+    })
     .sort();
 
   return (
