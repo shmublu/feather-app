@@ -19,7 +19,7 @@ const HomePage: NextPage = () => {
   const [selectedTermKey, setSelectedTermKey] = useState<string | null>(null);
   const [isTooltipVisible, setIsTooltipVisible] = useState<boolean>(false);
   const [isWikiOpen, setIsWikiOpen] = useState<boolean>(false);
-  const [activeSidebarTab, setActiveSidebarTab] = useState<'fiction' | 'wiki'>('fiction');
+  const [activeSidebarTab, setActiveSidebarTab] = useState<'editor' | 'wiki'>('editor');
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const fetchFictionContent = async () => {
