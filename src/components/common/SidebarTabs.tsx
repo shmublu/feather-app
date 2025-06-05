@@ -12,9 +12,9 @@ interface SidebarTabsProps {
   fictionWordCount: number;
   wikiTerms: WikiTerms;
   selectedTermKey: string | null;
-  onSelectTerm: (termKey: string) => void;
-  activeTab: 'editor' | 'wiki';
-  onTabChange: (tab: 'editor' | 'wiki') => void;
+  onSelectTerm: (termKey: string | null) => void;
+  activeTab: 'fiction' | 'wiki';
+  onTabChange: (tab: 'fiction' | 'wiki') => void;
 }
 
 const SidebarTabs: React.FC<SidebarTabsProps> = ({
@@ -32,24 +32,26 @@ const SidebarTabs: React.FC<SidebarTabsProps> = ({
     <div className={`${styles.wrapper} ${isMobileMenuOpen ? styles.open : styles.closed}`}>
       <div className={styles.tabHeader}>
         <button
-          className={`${styles.tabButton} ${activeTab === 'editor' ? styles.activeTab : ''}`}
-          onClick={() => onTabChange('editor')}
+          className={`${styles.tabButton} ${activeTab === 'fiction' ? styles.activeTab : ''}`}
+          onClick={() => onTabChange('fiction')}
         >
           Editor
         </button>
-        <button
+        {/* <button
           className={`${styles.tabButton} ${activeTab === 'wiki' ? styles.activeTab : ''}`}
           onClick={() => onTabChange('wiki')}
         >
           Wiki
-        </button>
+        </button> */}
       </div>
       <div className={styles.tabContent}>
-        {activeTab === 'editor' ? (
+        {activeTab === 'fiction' ? (
           <SidebarFiction
             isMobileMenuOpen={true}
             title={fictionTitle}
             currentWordCount={fictionWordCount}
+            onSelectTerm={onSelectTerm}
+            selectedTermKey={selectedTermKey}
           />
         ) : (
           <SidebarWiki

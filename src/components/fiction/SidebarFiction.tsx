@@ -8,25 +8,66 @@ import {
   Package,
   ChevronDown,
   ChevronUp,
+  Sword,
+  Crown,
+  Calendar,
 } from "lucide-react";
+import terms from "../../data/wiki/terms.json";
+
+interface Term {
+  description: string;
+  category: string;
+}
+
+interface TermsData {
+  [key: string]: Term;
+}
 
 interface SidebarFictionProps {
   isMobileMenuOpen: boolean;
   title: string;
   currentWordCount: number;
+  onSelectTerm: (termKey: string | null) => void;
+  selectedTermKey: string | null;
 }
+
+// Map of category names to their corresponding icons
+const categoryIcons = {
+  Character: Users,
+  Location: MapPin,
+  Item: Package,
+  Faction: Sword,
+  Title: Crown,
+  Event: Calendar,
+};
 
 const SidebarFiction: React.FC<SidebarFictionProps> = ({
   isMobileMenuOpen,
   title,
   currentWordCount,
+  onSelectTerm,
+  selectedTermKey,
 }) => {
-  // Define each accordion section
-  const navItems = [
-    { name: "Characters", icon: Users, count: 3 },
-    { name: "Locations", icon: MapPin, count: 2 },
-    { name: "Objects/Items", icon: Package, count: 2 },
-  ];
+  // Process terms data
+  const termsData: TermsData = terms;
+  
+  // Get unique categories from the data
+  const categories = [...new Set(Object.values(termsData).map(term => term.category))];
+  
+  // Create categorized terms object
+  const categorizedTerms = categories.reduce((acc, category) => {
+    acc[category] = Object.entries(termsData).filter(([_, term]) => 
+      term.category === category
+    );
+    return acc;
+  }, {} as Record<string, [string, Term][]>);
+
+  // Define each accordion section with actual counts and appropriate icons
+  const navItems = categories.map(category => ({
+    name: category,
+    icon: categoryIcons[category as keyof typeof categoryIcons] || Package, // Default to Package icon if no match
+    items: categorizedTerms[category],
+  }));
 
   // Track which panel is currently open (by index). `null` means none are open.
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -77,10 +118,7 @@ const SidebarFiction: React.FC<SidebarFictionProps> = ({
                 </div>
 
                 <div className={styles.accordionHeaderMeta}>
-                  {item.count != null && (
-                    <span className={styles.accordionCount}>{item.count}</span>
-                  )}
-
+                  <span className={styles.accordionCount}>{item.items.length}</span>
                   {isOpen ? (
                     <ChevronUp size={16} className={styles.chevronIcon} />
                   ) : (
@@ -89,7 +127,7 @@ const SidebarFiction: React.FC<SidebarFictionProps> = ({
                 </div>
               </button>
 
-              {/* Accordion Content (shown only if `isOpen`) */}
+              {/* Accordion Content */}
               <div
                 className={
                   isOpen
@@ -97,12 +135,22 @@ const SidebarFiction: React.FC<SidebarFictionProps> = ({
                     : styles.accordionContent
                 }
               >
-                {/* Replace this with whatever content you actually need—e.g. a list of your characters, locations, etc. */}
                 <ul className={styles.itemList}>
-                  {/* Example placeholders; remove or replace with real data */}
-                  {Array.from({ length: item.count }).map((_, i) => (
-                    <li key={i} className={styles.itemListEntry}>
-                      {item.name} #{i + 1}
+                  {item.items.map(([termName, termData]) => (
+                    <li 
+                      key={termName} 
+                      className={`${styles.itemListEntry} ${selectedTermKey === termName ? styles.activeItem : ''}`}
+                      onClick={() => onSelectTerm(termName)}
+                      role="button"
+                      tabIndex={0}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          onSelectTerm(termName);
+                        }
+                      }}
+                    >
+                      <div className={styles.termName}>{termName}</div>
+                      {/* <div className={styles.termDescription}>{termData.description}</div> */}
                     </li>
                   ))}
                 </ul>

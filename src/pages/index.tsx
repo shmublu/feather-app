@@ -111,10 +111,12 @@ const HomePage: NextPage = () => {
     setActiveSidebarTab('wiki');
   }, []);
 
-  const handleSelectTerm = (termKey: string) => {
+  const handleSelectTerm = (termKey: string | null) => {
     setSelectedTermKey(termKey);
-    setIsWikiOpen(true);
-    setActiveSidebarTab('wiki');
+    if (termKey !== null) {
+      setIsWikiOpen(true);
+      // setActiveSidebarTab('wiki');
+    }
   };
 
   if (isLoading) {
