@@ -42,14 +42,20 @@
 .searchContainer {
   position: relative;
   margin-bottom: 1rem;
+
 }
 .searchInput {
   width: 100%;
-  padding-left: 2rem; /* pl-8 */
+  border: 1px solid #334155; /* border-slate-700 */
+  border-radius: 0.375rem; /* rounded-md */
+  color: #334155;
+  /*bg-slate-700 */
+  background-color: #334155; /* bg-slate-700 */
+  padding-left: 1.5rem; /* pl-8 */
 }
 .searchIcon {
   position: absolute;
-  left: 0.5rem; /* left-2 */
+  left: 0.1rem; /* left-2 */
   top: 50%;
   transform: translateY(-50%);
   width: 1rem; /* w-4 h-4 */

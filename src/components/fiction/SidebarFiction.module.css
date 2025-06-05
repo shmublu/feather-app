@@ -3,7 +3,7 @@
    ------------------------- */
 
    .sidebar {
-    width: 16rem; /* w-64 */
+    width: 100%; /* w-64 */
     background-color: rgba(30, 41, 59, 0.8); /* bg-slate-800/80 */
     backdrop-filter: blur(10px);
     border-right: 1px solid #334155; /* border-slate-700 */

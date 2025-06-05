@@ -40,6 +40,7 @@
     background-color: transparent;
     border: none;
     padding: 0.25rem;
+    field-sizing: content;
 }
 .titleInput:focus {
     outline: 1px solid #a78bfa;

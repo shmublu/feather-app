@@ -25,8 +25,7 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ terms, onSelectTerm, selected
   return (
     <aside className={`${styles.sidebar} ${isMobileMenuOpen ? styles.sidebarOpen : styles.sidebarClosed}`}>
       <div className={styles.header}>
-        <BookOpen className={styles.headerIcon} />
-        <h2 className={styles.headerTitle}>Wiki Terms</h2>
+        <h1 className={styles.title}>Wiki</h1>
       </div>
       <div className={styles.searchContainer}>
         <input
