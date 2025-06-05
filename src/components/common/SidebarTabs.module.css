@@ -1,0 +1,53 @@
+.wrapper {
+  width: 18rem;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform 0.3s ease-in-out;
+  z-index: 30;
+}
+
+.closed {
+  transform: translateX(-100%);
+}
+
+.open {
+  transform: translateX(0);
+}
+
+@media (min-width: 768px) {
+  .wrapper {
+    position: relative;
+    transform: translateX(0);
+  }
+}
+
+.tabHeader {
+  display: flex;
+  background-color: #1e293b;
+  border-bottom: 1px solid #334155;
+}
+
+.tabButton {
+  flex: 1;
+  padding: 0.5rem;
+  color: #94a3b8;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.tabButton:hover {
+  background-color: #334155;
+  color: #e2e8f0;
+}
+
+.activeTab {
+  background-color: #475569;
+  color: white;
+}
+
+.tabContent {
+  flex: 1;
+  overflow-y: auto;
+}
