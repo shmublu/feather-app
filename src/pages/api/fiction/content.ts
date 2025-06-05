@@ -10,11 +10,15 @@ type ErrorResponse = {
   message: string;
 };
 
+interface SaveResponse extends FictionData {
+  message: string;
+}
+
 const contentFilePath = path.join(process.cwd(), 'src', 'data', 'fiction', 'prologue.md');
 
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<FictionData | ErrorResponse>
+  res: NextApiResponse<FictionData | SaveResponse | ErrorResponse>
 ) {
   if (req.method === 'GET') {
     try {
@@ -36,7 +40,13 @@ export default async function handler(
       const newFileContent = matter.stringify(markdownContent, frontmatter);
       fs.writeFileSync(contentFilePath, newFileContent, 'utf8');
       const wordCount = markdownContent.split(/\s+/).filter(Boolean).length;
-      res.status(200).json({ message: 'Content saved successfully', frontmatter, markdownContent, wordCount } as any); // Use `any` to allow message property
+      const response: SaveResponse = {
+        message: 'Content saved successfully',
+        frontmatter,
+        markdownContent,
+        wordCount,
+      };
+      res.status(200).json(response);
     } catch (error) {
       console.error('Error saving fiction content:', error);
       res.status(500).json({ message: 'Error saving fiction content' });
