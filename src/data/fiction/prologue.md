@@ -1,8 +1,13 @@
 ---
-title: "Prologue"
-scene: "Scene 1"
-status: "Draft"
-tags: ["The Damastrus", "Da Solis", "Rahko", "Solis Vero", "Codex"]
+title: Prologue
+scene: Scene 1
+status: Draft
+tags:
+  - The Damastrus
+  - Da Solis
+  - Rahko
+  - Solis Vero
+  - Codex
 ---
 
 In the heart of Rahka, under the perpetual twilight of its three suns, Da Solis, the Celestial Priest of the Solis Verio branch, received unsettling news. A courier, breathless and pale, delivered a scorched data-chip. It spoke of a lost shipment, not of common goods, but of sacred texts, vanished en route from the outer colonies. These weren't mere books; they were the lifeblood of their order, chronicles of the Galactic Wars and star-charts predating the Republic.

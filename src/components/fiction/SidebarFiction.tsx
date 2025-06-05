@@ -1,8 +1,15 @@
 // src/components/fiction/SidebarFiction.tsx
 
-import React from 'react';
-import styles from './SidebarFiction.module.css';
-import { BookOpen, Users, MapPin, Package, Search, PlusCircle } from 'lucide-react';
+import React, { useState } from "react";
+import styles from "./SidebarFiction.module.css";
+import {
+  BookOpen,
+  Users,
+  MapPin,
+  Package,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react";
 
 interface SidebarFictionProps {
   isMobileMenuOpen: boolean;
@@ -10,57 +17,101 @@ interface SidebarFictionProps {
   currentWordCount: number;
 }
 
-const SidebarFiction: React.FC<SidebarFictionProps> = ({ isMobileMenuOpen, title, currentWordCount }) => {
+const SidebarFiction: React.FC<SidebarFictionProps> = ({
+  isMobileMenuOpen,
+  title,
+  currentWordCount,
+}) => {
+  // Define each accordion section
   const navItems = [
-    { name: "Codex", icon: BookOpen, count: 10, active: true, subItems: [{ name: "All", count: 10 }] },
     { name: "Characters", icon: Users, count: 3 },
     { name: "Locations", icon: MapPin, count: 2 },
     { name: "Objects/Items", icon: Package, count: 2 },
   ];
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("Searching codex:", e.target.value);
+  // Track which panel is currently open (by index). `null` means none are open.
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  // Toggle the accordion panel at `idx`
+  const togglePanel = (idx: number) => {
+    setOpenIndex((prev) => (prev === idx ? null : idx));
   };
 
   return (
-    <aside className={`${styles.sidebar} ${isMobileMenuOpen ? styles.sidebarOpen : styles.sidebarClosed}`}>
+    <aside
+      className={`
+        ${styles.sidebar}
+        ${isMobileMenuOpen ? styles.sidebarOpen : styles.sidebarClosed}
+      `}
+    >
       <div className={styles.header}>
         <h1 className={styles.title}>Feather</h1>
-        <p className={styles.subtitle}>{title} - {currentWordCount} words</p>
+        <p className={styles.subtitle}>
+          {title} – {currentWordCount} words
+        </p>
       </div>
 
-      <div className={styles.searchContainer}>
-        <input
-          type="text"
-          placeholder="Search all entries..."
-          className={`input-base ${styles.searchInput}`}
-          onChange={handleSearch}
-        />
-        <Search className={styles.searchIcon} />
-      </div>
+      {/* Accordion container */}
+      <div className={styles.accordion}>
+        {navItems.map((item, idx) => {
+          const Icon = item.icon;
+          const isOpen = openIndex === idx;
 
-      <div className={styles.buttonGroup}>
-        <button className={`button-base ${styles.activeButton}`}>Codex</button>
-        <button className={`button-base ${styles.inactiveButton}`}>Snippets</button>
-        <button className={`button-base ${styles.inactiveButton}`}>Chats</button>
-        <PlusCircle className={styles.plusIcon} onClick={() => alert("Add new entry!")} />
-      </div>
-
-      <nav className={styles.nav}>
-        <ul>
-          {navItems.map((item) => (
-            <li key={item.name} className={styles.navItem}>
-              <a href="#" className={`${styles.navLink} ${item.active ? styles.navLinkActive : ''}`}>
-                <div className={styles.navLinkContent}>
-                  <item.icon className={`icon ${item.active ? styles.navIconActive : styles.navIcon}`} />
-                  <span>{item.name}</span>
+          return (
+            <div key={item.name} className={styles.accordionItem}>
+              {/* Accordion Header */}
+              <button
+                type="button"
+                className={styles.accordionHeader}
+                onClick={() => togglePanel(idx)}
+              >
+                <div className={styles.accordionHeaderContent}>
+                  <Icon
+                    className={
+                      isOpen
+                        ? `${styles.navIcon} ${styles.navIconActive}`
+                        : styles.navIcon
+                    }
+                    size={18}
+                  />
+                  <span className={styles.accordionTitle}>{item.name}</span>
                 </div>
-                {item.count !== undefined && <span className={styles.navCount}>{item.count}</span>}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </nav>
+
+                <div className={styles.accordionHeaderMeta}>
+                  {item.count != null && (
+                    <span className={styles.accordionCount}>{item.count}</span>
+                  )}
+
+                  {isOpen ? (
+                    <ChevronUp size={16} className={styles.chevronIcon} />
+                  ) : (
+                    <ChevronDown size={16} className={styles.chevronIcon} />
+                  )}
+                </div>
+              </button>
+
+              {/* Accordion Content (shown only if `isOpen`) */}
+              <div
+                className={
+                  isOpen
+                    ? `${styles.accordionContent} ${styles.accordionContentOpen}`
+                    : styles.accordionContent
+                }
+              >
+                {/* Replace this with whatever content you actually need—e.g. a list of your characters, locations, etc. */}
+                <ul className={styles.itemList}>
+                  {/* Example placeholders; remove or replace with real data */}
+                  {Array.from({ length: item.count }).map((_, i) => (
+                    <li key={i} className={styles.itemListEntry}>
+                      {item.name} #{i + 1}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </aside>
   );
 };

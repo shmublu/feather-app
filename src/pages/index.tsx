@@ -141,9 +141,6 @@ const HomePage: NextPage = () => {
         zIndex: 40
       }}>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <button onClick={toggleMobileMenu} style={{ marginRight: '0.5rem', color: '#cbd5e1', background: 'none', border: 'none', cursor: 'pointer' }} className="md-hidden">
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
           <h1 style={{ fontSize: '1.25rem', fontWeight: 600, color: '#a78bfa' }}>
             Feather / {fictionData.frontmatter?.title || 'Untitled'}
           </h1>
