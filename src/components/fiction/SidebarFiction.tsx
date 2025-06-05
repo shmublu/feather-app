@@ -40,23 +40,27 @@ const SidebarFiction: React.FC<SidebarFictionProps> = ({ isMobileMenuOpen, title
       </div>
 
       <div className={styles.buttonGroup}>
-        <button className={`button-base ${styles.activeButton}`}>Codex</button>
-        <button className={`button-base ${styles.inactiveButton}`}>Snippets</button>
-        <button className={`button-base ${styles.inactiveButton}`}>Chats</button>
-        <PlusCircle className={styles.plusIcon} onClick={() => alert("Add new entry!")} />
+        <button className={`button-base ${styles.activeButton}`} onClick={() => alert('Codex clicked')}>Codex</button>
+        <button className={`button-base ${styles.inactiveButton}`} onClick={() => alert('Snippets feature coming soon')}>Snippets</button>
+        <button className={`button-base ${styles.inactiveButton}`} onClick={() => alert('Chats feature coming soon')}>Chats</button>
+        <PlusCircle className={styles.plusIcon} onClick={() => alert('Add new entry!')} />
       </div>
 
       <nav className={styles.nav}>
         <ul>
           {navItems.map((item) => (
             <li key={item.name} className={styles.navItem}>
-              <a href="#" className={`${styles.navLink} ${item.active ? styles.navLinkActive : ''}`}>
+              <button
+                type="button"
+                className={`${styles.navLink} ${item.active ? styles.navLinkActive : ''}`}
+                onClick={() => alert(`${item.name} panel not implemented`)}
+              >
                 <div className={styles.navLinkContent}>
                   <item.icon className={`icon ${item.active ? styles.navIconActive : styles.navIcon}`} />
                   <span>{item.name}</span>
                 </div>
                 {item.count !== undefined && <span className={styles.navCount}>{item.count}</span>}
-              </a>
+              </button>
             </li>
           ))}
         </ul>

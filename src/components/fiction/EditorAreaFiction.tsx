@@ -86,6 +86,32 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
     setTags(tags.filter(tag => tag !== tagToRemove));
   };
 
+  const renderers = useMemo(() => ({
+    text: ({ children }: { children: string }) => {
+      const tokens = children.split(/(\s+)/);
+      return (
+        <>
+          {tokens.map((token, idx) => {
+            const clean = token.replace(/[^\w]/g, '');
+            if (knownTerms[clean]) {
+              return (
+                <TermHighlight
+                  key={idx}
+                  termKey={clean}
+                  onMouseEnter={onTermHover}
+                  onMouseLeave={onTermLeave}
+                >
+                  {token}
+                </TermHighlight>
+              );
+            }
+            return <React.Fragment key={idx}>{token}</React.Fragment>;
+          })}
+        </>
+      );
+    },
+  }), [knownTerms, onTermHover, onTermLeave]);
+
   return (
     <main className={styles.editorArea}>
       <div className={styles.toolbar}>
@@ -132,7 +158,7 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
               />
             ) : (
               <div className={styles.contentViewerText}>
-                 <ReactMarkdown>{editableContent}</ReactMarkdown>
+                 <ReactMarkdown components={renderers}>{editableContent}</ReactMarkdown>
               </div>
             )}
              {isEditing && (
