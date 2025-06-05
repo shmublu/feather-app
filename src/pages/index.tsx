@@ -22,6 +22,8 @@ const HomePage: NextPage = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
   const [isWikiOpen, setIsWikiOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [categoryCounts, setCategoryCounts] = useState<Record<string, number>>({});
 
   const fetchFictionContent = async () => {
     try {
@@ -45,6 +47,12 @@ const HomePage: NextPage = () => {
         formatted[term] = termsData[term].description;
       }
       setKnownTerms(formatted);
+      const counts: Record<string, number> = {};
+      Object.values(termsData).forEach((t: { category: string }) => {
+        counts[t.category] = (counts[t.category] || 0) + 1;
+      });
+      counts['All'] = Object.keys(termsData).length;
+      setCategoryCounts(counts);
     } catch (error) {
       console.error(error);
     }
@@ -80,13 +88,19 @@ const HomePage: NextPage = () => {
         body: JSON.stringify(updatedTerms),
       });
       if (!res.ok) throw new Error('Failed to save terms');
-      const result = await res.json();
+      const result: { terms: WikiTerms } = await res.json();
       setWikiTerms(result.terms);
       const formatted: KnownTerms = {};
       for (const term in result.terms) {
         formatted[term] = result.terms[term].description;
       }
       setKnownTerms(formatted);
+      const counts: Record<string, number> = {};
+      Object.values(result.terms).forEach((t: { category: string }) => {
+        counts[t.category] = (counts[t.category] || 0) + 1;
+      });
+      counts['All'] = Object.keys(result.terms).length;
+      setCategoryCounts(counts);
       alert('Wiki terms saved!');
       return true;
     } catch (error) {
@@ -117,6 +131,11 @@ const HomePage: NextPage = () => {
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+    setIsWikiOpen(true);
   };
 
   if (isLoading) {
@@ -157,6 +176,9 @@ const HomePage: NextPage = () => {
           isMobileMenuOpen={isMobileMenuOpen}
           title={fictionData.frontmatter?.title || 'Untitled Document'}
           currentWordCount={fictionData.wordCount}
+          activeCategory={selectedCategory}
+          onCategorySelect={handleCategorySelect}
+          categoryCounts={categoryCounts}
         />
         {isMobileMenuOpen && (
           <div
@@ -181,6 +203,7 @@ const HomePage: NextPage = () => {
               onSelectTerm={handleSelectTerm}
               selectedTermKey={selectedTermKey}
               isMobileMenuOpen={true}
+              categoryFilter={selectedCategory}
             />
             <WikiEditor
               terms={wikiTerms}

@@ -27,7 +27,7 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
   onTermClick,
   onSave,
 }) => {
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [isEditing, setIsEditing] = useState<boolean>(true);
   const [editableContent, setEditableContent] = useState<string>(initialContent);
   const [editableFrontmatter, setEditableFrontmatter] = useState<Frontmatter>(initialFrontmatter || {});
   const [title, setTitle] = useState<string>(initialFrontmatter?.title || 'Prologue');
