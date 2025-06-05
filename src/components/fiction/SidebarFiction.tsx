@@ -2,7 +2,7 @@
 
 import React from 'react';
 import styles from './SidebarFiction.module.css';
-import { BookOpen, Users, MapPin, Package, Search, PlusCircle } from 'lucide-react';
+import { BookOpen, Users, MapPin, Package, Search, PlusCircle, FileText, MessageCircle } from 'lucide-react';
 
 interface SidebarFictionProps {
   isMobileMenuOpen: boolean;
@@ -40,9 +40,15 @@ const SidebarFiction: React.FC<SidebarFictionProps> = ({ isMobileMenuOpen, title
       </div>
 
       <div className={styles.buttonGroup}>
-        <button className={`button-base ${styles.activeButton}`}>Codex</button>
-        <button className={`button-base ${styles.inactiveButton}`}>Snippets</button>
-        <button className={`button-base ${styles.inactiveButton}`}>Chats</button>
+        <button className={`button-base ${styles.activeButton}`}>
+          <BookOpen size={14} className={styles.buttonIcon} /> Codex
+        </button>
+        <button className={`button-base ${styles.inactiveButton}`}>
+          <FileText size={14} className={styles.buttonIcon} /> Snippets
+        </button>
+        <button className={`button-base ${styles.inactiveButton}`}>
+          <MessageCircle size={14} className={styles.buttonIcon} /> Chats
+        </button>
         <PlusCircle className={styles.plusIcon} onClick={() => alert("Add new entry!")} />
       </div>
 
