@@ -1,44 +1,8 @@
 [  
   {  
-    "text": "his wife",  
-    "preceding": "“Wait a moment, you’ll see,” said his",  
-    "description": "Change reference to explicitly identify Lydia Hadley as the mother and protagonist by simplifying “his wife” to “wife”, matching the character entry.",  
+    "text": "the vultures",  
+    "preceding": "A shadow passed through the sky. George Hadley looked up, and as he watched the shadow moved across his sweating face.",  
+    "description": "Scavenger birds in the African veldt scene, completing the realism of death imagery\n\nreplace with serpents to shift the menacing imagery from avian scavengers to slithering reptiles",  
     "category": "Characters"  
-  },  
-  {  
-    "text": "green, lovely forest",  
-    "preceding": "There was a",  
-    "description": "Update the location description to the succinct phrase marking the alternate virtual environment created by Wendy and Peter.",  
-    "category": "Locations"  
-  },  
-  {  
-    "text": "They walked down the hall",  
-    "preceding": "“All right, let’s have a look.”",  
-    "description": "Re-categorize the approach to the nursery as a timeline event rather than a mere location mention.",  
-    "category": "Timeline"  
-  },  
-  {  
-    "text": "nursery light turned on when they came within ten feet of it",  
-    "preceding": "approach was sensed by a hidden switch and the",  
-    "description": "Highlight the automatic activation of the nursery environment as a key moment in the story’s timeline.",  
-    "category": "Timeline"  
-  },  
-  {  
-    "text": "he locked the huge door.",  
-    "preceding": "“All right.” Although he wasn’t happy about it,",  
-    "description": "Emphasize George’s decisive action of locking the nursery as a timeline milestone.",  
-    "category": "Timeline"  
-  },  
-  {  
-    "text": "turning off the voice clocks, the stoves, the heaters, the shoe cleaners, the body washer, the massager, and every other machine",  
-    "preceding": "And he marched about the house",  
-    "description": "Detail George’s systematic disabling of all house machines as a significant timeline event.",  
-    "category": "Timeline"  
-  },  
-  {  
-    "text": "Mr. and Mrs. Hadley screamed.",  
-    "preceding": "The lions!",  
-    "description": "Mark the climactic moment when the parents realize they are attacked by the simulated lions, fitting the timeline category.",  
-    "category": "Timeline"  
   }  
 ]

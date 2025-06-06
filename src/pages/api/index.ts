@@ -21,7 +21,7 @@ async function generate_struct(client: OpenAI, input_text: string, output_filena
     - important events
     - important locations
     
-    Include all of the characters, events, and locations that are important to the story. They may be abstract objects.
+    Include all of the characters, events, and locations that are important to the story (major and minor). They may be abstract objects.
     
     Please output your answer as a JSON list of dictionaries, each with the following fields:
     - "preceding": a few words preceding the entry to guarnatee uniqueness. It should match with a part of the text exactly.
@@ -41,8 +41,10 @@ async function generate_struct(client: OpenAI, input_text: string, output_filena
             input: prompt
         });
 
-        console.log("Model output:", response.output_text);
-        fs.writeFileSync(output_filename, response.output_text);
+        const output_text = response.output_text;//extractContent(response.output_text);
+
+        console.log("Model output:", output_text);
+        fs.writeFileSync(output_filename, output_text);
     } catch (err) {
         console.error("Error with o4-mini high reasoning:", err);
     }
@@ -57,14 +59,14 @@ async function generate_errors(
 ): Promise<void> {
     console.log('struct1', struct1);
     console.log('struct2', struct2);
-    const diff1 = struct1.filter(item => !struct2.some(item2 => item2.text === item.text));
-    const diff2 = struct2.filter(item => !struct1.some(item2 => item2.text === item.text));
+    const diff1 = struct1.filter(item => !struct2.some(item2 => item2.text === item.text && item2.description === item.description));
+    const diff2 = struct2.filter(item => !struct1.some(item2 => item2.text === item.text && item2.description === item.description));
     
     console.log(diff1);
-    console.log(diff2);
+    console.log(diff2); 
 
     const prompt = `
-    You will be given an input text and its structure. Your goal is to edit the text to follow a new structure,.
+    You will be given an input text and its structure. Your goal is to edit the text to follow a new structure.
 
     Here is the original text structure (only differences shown):
     ${JSON.stringify(diff1)}
@@ -93,8 +95,10 @@ async function generate_errors(
             input: prompt
         });
 
-        console.log("Model output:", response.output_text);
-        fs.writeFileSync(output_filename, response.output_text);
+        const output_text = response.output_text;//extractContent(response.output_text);
+
+        console.log("Model output:", output_text);
+        fs.writeFileSync(output_filename, output_text);
     } catch (err) {
         console.error("Error with o4-mini high reasoning:", err);
     }

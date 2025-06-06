@@ -16,9 +16,11 @@ interface SaveResponse extends FictionData {
   message: string;
 }
 
+const blankFilePath = path.join(process.cwd(), 'src', 'data', 'blank.json');
 const contentFilePath = path.join(process.cwd(), 'src', 'data', 'input.md');
 const structFilePath = path.join(process.cwd(), 'src', 'data', 'terms.json');
 const newStructFilePath = path.join(process.cwd(), 'src', 'data', 'terms_new.json');
+const errorStructFilePath = path.join(process.cwd(), 'src', 'data', 'errors.json');
 
 export default async function handler(
   req: NextApiRequest,
@@ -26,6 +28,9 @@ export default async function handler(
 ) {
   if (req.method === 'GET') {
     try {
+      fs.copyFileSync(blankFilePath, structFilePath);
+      fs.copyFileSync(blankFilePath, newStructFilePath);
+      fs.copyFileSync(blankFilePath, errorStructFilePath);
       const fileContents = fs.readFileSync(contentFilePath, 'utf8');
       const { data, content } = matter(fileContents);
       const wordCount = content.split(/\s+/).filter(Boolean).length;
@@ -50,6 +55,13 @@ export default async function handler(
       const newFileContent = matter.stringify(markdownContent, frontmatter);
       fs.writeFileSync(contentFilePath, newFileContent, 'utf8');
       const wordCount = markdownContent.split(/\s+/).filter(Boolean).length;
+
+      // const client = await create_client();
+      // const struct = await generate_struct(client, newFileContent, structFilePath);
+      // copy struct to newStructFilePath
+      // fs.copyFileSync(structFilePath, newStructFilePath);
+
+
       const response: SaveResponse = {
         message: 'Content saved successfully',
         frontmatter,

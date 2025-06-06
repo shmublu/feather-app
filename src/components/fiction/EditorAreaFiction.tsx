@@ -124,10 +124,15 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
       }
     });
 
-    // Sort matches by start position
-    matches.sort((a, b) => a.start - b.start);
+    // Sort matches by type (errors first) and then by start position
+    matches.sort((a, b) => {
+      if (a.type !== b.type) {
+        return a.type === 'error' ? -1 : 1; // 'error' comes before 'term'
+      }
+      return a.start - b.start;
+    });
 
-    // Filter out overlapping matches (keep earlier ones)
+    // Filter out overlapping matches (keep earlier ones, which will be errors due to sort)
     const filteredMatches = matches.reduce((acc: Match[], curr) => {
       const lastMatch = acc[acc.length - 1];
       if (!lastMatch || curr.start >= lastMatch.end) {

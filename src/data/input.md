@@ -1,3 +1,9 @@
+---
+title: Prologue
+tags: []
+---
+The story is about John.
+
 
 “George, I wish you’d look at the nursery.”
 

@@ -63,6 +63,9 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
     if (selectedTermKey && selectedTermKey !== currentTerm) {
       updatedTerms.splice(updatedTerms.findIndex(term => term.text === selectedTermKey), 1);
     }
+    else {
+      updatedTerms.splice(updatedTerms.findIndex(term => term.text === currentTerm), 1);
+    }
     
     updatedTerms.push({
       text: currentTerm,
@@ -70,6 +73,8 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
       category: currentCategory,
       preceding: currentPreceding,
     });
+
+    console.log('updatedTerms', updatedTerms);
 
     const success = await onSave(updatedTerms);
     if (success) {

@@ -40,10 +40,10 @@ const HomePage: NextPage = () => {
       const termsData: WikiTerms = await res.json();
       setWikiTerms(termsData);
       const formatted: KnownTerms = {};
-      console.log('termsData', termsData);
       for (const term in termsData) {
         formatted[termsData[term].text] = termsData[term].description;
       }
+      console.log('termsData', termsData);
       setKnownTerms(formatted);
     } catch (error) {
       console.error(error);
@@ -52,7 +52,8 @@ const HomePage: NextPage = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    Promise.all([fetchFictionContent(), fetchWikiTerms()]).finally(() => setIsLoading(false));
+    // Run sequentially
+    Promise.all([fetchFictionContent()]).then(() => fetchWikiTerms()).then(() => setIsLoading(false));
     setActiveSidebarTab('fiction');
   }, []);
 
