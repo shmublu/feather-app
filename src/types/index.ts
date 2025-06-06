@@ -13,14 +13,14 @@ export interface FictionData {
   wordCount: number;
 }
 
-export interface TermData {
+export interface WikiTerm {
+  text: string;
   description: string;
   category: string;
+  preceding?: string;
 }
 
-export interface WikiTerms {
-  [key: string]: TermData;
-}
+export type WikiTerms = WikiTerm[];
 
 // Used for the simpler key:description mapping in the fiction editor
 export interface KnownTerms {

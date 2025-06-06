@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import styles from './SidebarWiki.module.css';
-import { BookOpen, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import type { WikiTerms } from '../../types';
 
 interface SidebarWikiProps {
@@ -17,9 +17,11 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ terms, onSelectTerm, selected
 
   // reindex terms based on key "text"-id where id is index of term
 
-  const filteredTerms = terms.filter(term => 
+  const filteredTerms = terms
+    .filter(term =>
       term.category.toLowerCase().includes(searchTerm.toLowerCase())
-  ).sort();
+    )
+    .sort((a, b) => a.text.localeCompare(b.text));
 
   console.log(filteredTerms);
 
@@ -40,9 +42,9 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ terms, onSelectTerm, selected
       </div>
       <nav className={styles.navList}>
         {filteredTerms.length > 0 ? (
-          filteredTerms.map(term => (
+          filteredTerms.map((term, idx) => (
             <button
-              key={term.text}
+              key={`${term.text}-${idx}`}
               className={`${styles.navItem} ${term.text === selectedTermKey ? styles.navItemActive : ''}`}
               onClick={() => onSelectTerm(term.text)}
             >

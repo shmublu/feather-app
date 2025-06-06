@@ -92,14 +92,15 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
   };
 
   const handleDelete = async () => {
-    if (!selectedTermKey || !terms[selectedTermKey]) return;
+    const index = terms.findIndex(term => term.text === selectedTermKey);
+    if (!selectedTermKey || index === -1) return;
     if (confirm(`Are you sure you want to delete "${selectedTermKey}"?`)) {
-      const updatedTerms = [ ...terms ];
-      updatedTerms.splice(updatedTerms.findIndex(term => term.text === selectedTermKey), 1);
+      const updatedTerms = [...terms];
+      updatedTerms.splice(index, 1);
       const success = await onSave(updatedTerms);
       if (success) {
         setTerms(updatedTerms);
-        onSelectTerm(updatedTerms[0].text || null);
+        onSelectTerm(updatedTerms[0]?.text || null);
       }
     }
   };
@@ -112,7 +113,7 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
       setCurrentTerm(hasTerm.text);
       setCurrentDescription(hasTerm.description);
       setCurrentCategory(hasTerm.category);
-      setCurrentPreceding(hasTerm.preceding);
+      setCurrentPreceding(hasTerm.preceding || '');
     } else {
       setCurrentTerm('');
       setCurrentDescription('');

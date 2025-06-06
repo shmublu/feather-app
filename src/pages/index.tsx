@@ -15,7 +15,7 @@ const HomePage: NextPage = () => {
   const [fictionData, setFictionData] = useState<FictionData>({ frontmatter: {}, markdownContent: '', wordCount: 0 });
   const [knownTerms, setKnownTerms] = useState<KnownTerms>({});
   const [hoveredTermInfo, setHoveredTermInfo] = useState<HoveredTermInfo | null>(null);
-  const [wikiTerms, setWikiTerms] = useState<WikiTerms>({});
+  const [wikiTerms, setWikiTerms] = useState<WikiTerms>([]);
   const [selectedTermKey, setSelectedTermKey] = useState<string | null>(null);
   const [isTooltipVisible, setIsTooltipVisible] = useState<boolean>(false);
   const [isWikiOpen, setIsWikiOpen] = useState<boolean>(false);
@@ -38,11 +38,16 @@ const HomePage: NextPage = () => {
       const res = await fetch('/api/wiki/terms');
       if (!res.ok) throw new Error('Failed to fetch wiki terms');
       const termsData: WikiTerms = await res.json();
-      setWikiTerms(termsData);
+      const validTerms = termsData.filter(
+        t => t.text && t.description && t.category
+      );
+      const uniqueTerms = validTerms.filter(
+        (t, idx, arr) => arr.findIndex(tt => tt.text === t.text) === idx
+      );
+      setWikiTerms(uniqueTerms);
       const formatted: KnownTerms = {};
-      console.log('termsData', termsData);
-      for (const term in termsData) {
-        formatted[termsData[term].text] = termsData[term].description;
+      for (const term of uniqueTerms) {
+        formatted[term.text] = term.description;
       }
       setKnownTerms(formatted);
     } catch (error) {
@@ -81,13 +86,20 @@ const HomePage: NextPage = () => {
       });
       if (!res.ok) throw new Error('Failed to save terms');
       const result = await res.json();
-      setWikiTerms(result.terms);
+      const resultTerms: WikiTerms = result.terms;
+      const validTerms = resultTerms.filter(
+        t => t.text && t.description && t.category
+      );
+      const uniqueTerms = validTerms.filter(
+        (t, idx, arr) => arr.findIndex(tt => tt.text === t.text) === idx
+      );
+      setWikiTerms(uniqueTerms);
       const formatted: KnownTerms = {};
-      for (const term in result.terms) {
-        formatted[result.terms[term].text] = result.terms[term].description;
+      for (const term of uniqueTerms) {
+        formatted[term.text] = term.description;
       }
       console.log('updatedTerms', updatedTerms);
-      console.log('wikiTerms', result.terms);
+      console.log('wikiTerms', uniqueTerms);
       console.log('formatted', formatted);
       setKnownTerms(formatted);
       alert('Wiki terms saved!');
