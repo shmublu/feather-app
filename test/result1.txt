@@ -1,0 +1,154 @@
+TAP version 13
+# Subtest: Advanced Wiki Builder E2E Tests
+    # Subtest: Core Functionality & Schema Adherence
+        # Subtest: buildWikiStructure: should generate a valid, empty schema
+        ok 1 - buildWikiStructure: should generate a valid, empty schema
+          ---
+          duration_ms: 1819.041865
+          ...
+        # Subtest: fillWiki: should populate a schema with structurally valid data
+        ok 2 - fillWiki: should populate a schema with structurally valid data
+          ---
+          duration_ms: 1.180802
+          ...
+        1..2
+    ok 1 - Core Functionality & Schema Adherence
+      ---
+      duration_ms: 1822.731769
+      type: 'suite'
+      ...
+    # Subtest: Qualitative Content Sanity Checks
+        # Subtest: Fiction: should extract specific, logical relationships
+        ok 1 - Fiction: should extract specific, logical relationships
+          ---
+          duration_ms: 1.032402
+          ...
+        # Subtest: Non-Fiction: should link arguments to their evidence correctly
+        ok 2 - Non-Fiction: should link arguments to their evidence correctly
+          ---
+          duration_ms: 0.638801
+          ...
+        1..2
+    ok 2 - Qualitative Content Sanity Checks
+      ---
+      duration_ms: 2.492003
+      type: 'suite'
+      ...
+    # Subtest: Intermediate, Complex, & Edge Case Workflows
+        # Subtest: Intermediate Update: should add new information to an existing wiki
+        ok 1 - Intermediate Update: should add new information to an existing wiki
+          ---
+          duration_ms: 16641.336596
+          ...
+
+--- Edit Suggestions After Removing Dr. Salk ---
+[
+  {
+    "sentence": 11,
+    "reason": "Mentions Dr. Jonas Salk's IPV, which has been removed from the updated wiki."
+  }
+]
+        # Subtest: Complex Edit: should identify all sentences related to a removed character
+        not ok 2 - Complex Edit: should identify all sentences related to a removed character
+          ---
+          duration_ms: 7492.652737
+          location: '/home/shmublu/git/feather2/feather-next-app/test/wiki.test.ts:2:5630'
+          failureType: 'testCodeFailure'
+          error: 'Should find at least two sentences to edit after removing Dr. Salk.'
+          code: 'ERR_ASSERTION'
+          name: 'AssertionError'
+          expected: true
+          actual: false
+          operator: '=='
+          stack: |-
+            TestContext.<anonymous> (/home/shmublu/git/feather2/feather-next-app/test/wiki.test.ts:95:20)
+            process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+            async Test.run (node:internal/test_runner/test:797:9)
+            async Suite.processPendingSubtests (node:internal/test_runner/test:526:7)
+          ...
+        # Subtest: Edge Case: should return zero edits for an irrelevant change
+        ok 3 - Edge Case: should return zero edits for an irrelevant change
+          ---
+          duration_ms: 773.955173
+          ...
+        1..3
+    not ok 3 - Intermediate, Complex, & Edge Case Workflows
+      ---
+      duration_ms: 24908.902805
+      type: 'suite'
+      location: '/home/shmublu/git/feather2/feather-next-app/test/wiki.test.ts:2:4916'
+      failureType: 'subtestsFailed'
+      error: '1 subtest failed'
+      code: 'ERR_TEST_FAILURE'
+      ...
+
+--- Critique of a Complete Job ---
+{
+  "is_complete": false,
+  "missing_information": "The connection between the star-chart symbols and the markings inside Elara's brass locket was not extracted. The skepticism of the Guild elders, including Valerius, towards Kael's claims was not included."
+}
+    # Subtest: Self-Correction "Critic" Agent
+        # Subtest: checkCompleteness: should identify that a job is complete when it is
+        not ok 1 - checkCompleteness: should identify that a job is complete when it is
+          ---
+          duration_ms: 5921.890476
+          location: '/home/shmublu/git/feather2/feather-next-app/test/wiki.test.ts:2:6869'
+          failureType: 'testCodeFailure'
+          error: |-
+            The critic should find the job to be complete.
+            
+            false !== true
+            
+          code: 'ERR_ASSERTION'
+          name: 'AssertionError'
+          expected: true
+          actual: false
+          operator: 'strictEqual'
+          stack: |-
+            TestContext.<anonymous> (/home/shmublu/git/feather2/feather-next-app/test/wiki.test.ts:115:20)
+            process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+            async Test.run (node:internal/test_runner/test:797:9)
+            async Promise.all (index 0)
+            async Suite.run (node:internal/test_runner/test:1135:7)
+            async Suite.processPendingSubtests (node:internal/test_runner/test:526:7)
+          ...
+
+--- Critique of an Incomplete Job ---
+{
+  "is_complete": false,
+  "missing_information": "The JSON is missing several key elements: the city of Silvercrest, Elara's mentor Master Valerius, the Astrolabe Guild, the Veiled Peaks, Elara's brass locket and its significance, Kael and his dragon Ignis, the new land Aerthos, the star-chart, and the planned journey to Aerthos."
+}
+        # Subtest: checkCompleteness: should identify that a job is incomplete
+        ok 2 - checkCompleteness: should identify that a job is incomplete
+          ---
+          duration_ms: 1499.064333
+          ...
+        1..2
+    not ok 4 - Self-Correction "Critic" Agent
+      ---
+      duration_ms: 7421.490309
+      type: 'suite'
+      location: '/home/shmublu/git/feather2/feather-next-app/test/wiki.test.ts:2:6805'
+      failureType: 'subtestsFailed'
+      error: '1 subtest failed'
+      code: 'ERR_TEST_FAILURE'
+      ...
+    1..4
+not ok 1 - Advanced Wiki Builder E2E Tests
+  ---
+  duration_ms: 69405.08717
+  type: 'suite'
+  location: '/home/shmublu/git/feather2/feather-next-app/test/wiki.test.ts:2:1815'
+  failureType: 'subtestsFailed'
+  error: '2 subtests failed'
+  code: 'ERR_TEST_FAILURE'
+  ...
+1..1
+# tests 9
+# suites 5
+# pass 7
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 69421.157964

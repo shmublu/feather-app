@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    // --- Essential Module Settings ---
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+
+    // --- Standard Best Practices ---
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "ts-node": {
+    // --- Tell ts-node this is an ESM project ---
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  }
+}
