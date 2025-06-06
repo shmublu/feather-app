@@ -12,16 +12,7 @@ import {
   Crown,
   Calendar,
 } from "lucide-react";
-import terms from "../../data/terms.json";
-
-interface Term {
-  description: string;
-  category: string;
-}
-
-interface TermsData {
-  [key: string]: Term;
-}
+import type { WikiTerms } from '../../types';
 
 interface SidebarFictionProps {
   isMobileMenuOpen: boolean;
@@ -29,16 +20,17 @@ interface SidebarFictionProps {
   currentWordCount: number;
   onSelectTerm: (termKey: string | null) => void;
   selectedTermKey: string | null;
+  terms: WikiTerms;
 }
 
 // Map of category names to their corresponding icons
 const categoryIcons = {
-  Character: Users,
-  Location: MapPin,
-  Item: Package,
-  Faction: Sword,
-  Title: Crown,
-  Event: Calendar,
+  Characters: Users,
+  Locations: MapPin,
+  Items: Package,
+  Factions: Sword,
+  Titles: Crown,
+  Timeline: Calendar,
 };
 
 const SidebarFiction: React.FC<SidebarFictionProps> = ({
@@ -47,20 +39,21 @@ const SidebarFiction: React.FC<SidebarFictionProps> = ({
   currentWordCount,
   onSelectTerm,
   selectedTermKey,
+  terms,
 }) => {
   // Process terms data
   const termsData: TermsData = terms;
+
+  console.log('sidebarfiction terms', terms);
   
   // Get unique categories from the data
-  const categories = [...new Set(Object.values(termsData).map(term => term.category))];
+  const categories = [...new Set(termsData.map(term => term.category))];
   
   // Create categorized terms object
   const categorizedTerms = categories.reduce((acc, category) => {
-    acc[category] = Object.entries(termsData).filter(([_, term]) => 
-      term.category === category
-    );
+    acc[category] = termsData.filter(term => term.category === category);
     return acc;
-  }, {} as Record<string, [string, Term][]>);
+  }, {} as Record<string, Term[]>);
 
   // Define each accordion section with actual counts and appropriate icons
   const navItems = categories.map(category => ({
@@ -136,21 +129,21 @@ const SidebarFiction: React.FC<SidebarFictionProps> = ({
                 }
               >
                 <ul className={styles.itemList}>
-                  {item.items.map(([termName, termData]) => (
+                  {item.items.map((term) => (
                     <li 
-                      key={termData.text} 
-                      className={`${styles.itemListEntry} ${selectedTermKey === termData.text ? styles.activeItem : ''}`}
-                      onClick={() => onSelectTerm(termData.text)}
+                      key={term.text} 
+                      className={`${styles.itemListEntry} ${selectedTermKey === term.text ? styles.activeItem : ''}`}
+                      onClick={() => onSelectTerm(term.text)}
                       role="button"
                       tabIndex={0}
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
-                          onSelectTerm(termData.text);
+                          onSelectTerm(term.text);
                         }
                       }}
                     >
-                      <div className={styles.termName}>{termData.text}</div>
-                      {/* <div className={styles.termDescription}>{termData.description}</div> */}
+                      <div className={styles.termName}>{term.text}</div>
+                      {/* <div className={styles.termDescription}>{term.description}</div> */}
                     </li>
                   ))}
                 </ul>

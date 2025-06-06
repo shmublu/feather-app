@@ -17,17 +17,17 @@ async function create_client(): Promise<OpenAI> {
 async function generate_struct(client: OpenAI, input_text: string, output_filename: string): Promise<void> {
     const prompt = `
     You will be given an input text. Your goal is to structure the text into:
-    - Characters: important actors
-    - Timeline: important events
-    - Locations: important locations
+    - important actors
+    - important events
+    - important locations
     
-    The 3 categories can refer to abstract objects.
+    Include all of the characters, events, and locations that are important to the story. They may be abstract objects.
     
     Please output your answer as a JSON list of dictionaries, each with the following fields:
-    - "preceding": a few words preceding the entry to guarnatee uniqueness
-    - "text": the text corresponding to the entry
+    - "preceding": a few words preceding the entry to guarnatee uniqueness. It should match with a part of the text exactly.
+    - "text": the text corresponding to the entry. It should match with a part of the text exactly.
     - "description": the contents of the entry
-    - "category": the category of the entry. Should be one of the following: Characters, Timeline, Locations.
+    - "category": the category of the entry. Should be one of the following: Characters (for actors), Timeline (for events), Locations (for locations).
     
     Here is the input text:
     ${input_text}
@@ -64,30 +64,31 @@ async function generate_errors(
     console.log(diff2);
 
     const prompt = `
-    You will be given an input text and its structure. Your goal is to edit the text to follow a new structure. 
-    Output a JSON list of dictionaries, each with the following fields:
-    - "preceding": a short sample preceding "text" (it should match exactly with the input text)
-    - "text": the text in the input text that requires change
-    - "description": a short description of the change to be made.
-    - "category": the category of the change to be made.
+    You will be given an input text and its structure. Your goal is to edit the text to follow a new structure,.
+
+    Here is the original text structure (only differences shown):
+    ${JSON.stringify(diff1)}
     
-    Make sure to output all the inconsistencies that result from the change. They may be semantic, grammatical, ... .
-    Each "text" should be unique.
-    
-    Here is the original text structure:
-    ${JSON.stringify(struct1)}
-    
-    We want to change it to the following structure (only the differences):
+    Here is the target text structure that we want to get after making edits to the text (only differences shown):
     ${JSON.stringify(diff2)}
-    
+
+    Output all of the changes to introduce in the input text to achieve the target text structure.
+    Format your answer as a JSON list of dictionaries, each with the following fields:
+    - "text": the text in the original text that the user needs to edit. (it should correspond to a passage in the input text)
+    - "preceding": a few words to uniquely determine the entry in the original text (it should correspond to a passage in the input text)
+    - "description": a desciption / reason for why the user should edit the entry.
+    - "category": the category of the change to be made.
+
     Here is the input text:
     ${input_text}
     `;
 
+    console.log('prompt', prompt);
+
     try {
         const response = await client.responses.create({
             model: "o4-mini",
-            reasoning: { effort: "low" },
+            reasoning: { effort: "medium" },
             instructions: "You are an expert in writing and analyzing texts.",
             input: prompt
         });

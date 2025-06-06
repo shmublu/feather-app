@@ -53,6 +53,7 @@ const HomePage: NextPage = () => {
   useEffect(() => {
     setIsLoading(true);
     Promise.all([fetchFictionContent(), fetchWikiTerms()]).finally(() => setIsLoading(false));
+    setActiveSidebarTab('fiction');
   }, []);
 
   const handleSaveContent = async (newMarkdownContent: string, newFrontmatter: typeof fictionData.frontmatter) => {

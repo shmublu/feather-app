@@ -18,6 +18,7 @@ interface SaveResponse extends FictionData {
 
 const contentFilePath = path.join(process.cwd(), 'src', 'data', 'input.md');
 const structFilePath = path.join(process.cwd(), 'src', 'data', 'terms.json');
+const newStructFilePath = path.join(process.cwd(), 'src', 'data', 'terms_new.json');
 
 export default async function handler(
   req: NextApiRequest,
@@ -31,6 +32,8 @@ export default async function handler(
 
       const client = await create_client();
       const struct = await generate_struct(client, content, structFilePath);
+      // copy struct to newStructFilePath
+      fs.copyFileSync(structFilePath, newStructFilePath);
 
       res.status(200).json({ frontmatter: data as Frontmatter, markdownContent: content, wordCount });
     } catch (error) {

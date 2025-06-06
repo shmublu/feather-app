@@ -27,7 +27,7 @@ const SidebarTabs: React.FC<SidebarTabsProps> = ({
   activeTab,
   onTabChange,
 }) => {
-
+  console.log('SidebarTabs wikiTerms', wikiTerms);
   return (
     <div className={`${styles.wrapper} ${isMobileMenuOpen ? styles.open : styles.closed}`}>
       <div className={styles.tabHeader}>
@@ -52,6 +52,7 @@ const SidebarTabs: React.FC<SidebarTabsProps> = ({
             currentWordCount={fictionWordCount}
             onSelectTerm={onSelectTerm}
             selectedTermKey={selectedTermKey}
+            terms={wikiTerms}
           />
         ) : (
           <SidebarWiki

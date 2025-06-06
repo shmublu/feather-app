@@ -194,7 +194,7 @@
     margin-top: 1rem; /* push accordion below header */
   }
   
-  /* Each accordion “panel” wrapper */
+  /* Each accordion "panel" wrapper */
   .accordionItem {
     background-color: rgba(30, 41, 59, 0.8); /* match sidebar bg */
     border-radius: 0.375rem; /* same as rounded-md */
@@ -239,14 +239,14 @@
     color: #a78bfa; /* text-purple-400 */
   }
   
-  /* Section title (“Characters”, “Locations”, etc.) */
+  /* Section title ("Characters", "Locations", etc.) */
   .accordionTitle {
     font-size: 0.9375rem; /* 15px */
     font-weight: 500;
     color: #e2e8f0; /* slate-200 for good contrast */
   }
   
-  /* Right‐side meta (count badge + chevron) */
+  /* Right-side meta (count badge + chevron) */
   .accordionHeaderMeta {
     display: flex;
     align-items: center;
@@ -277,7 +277,7 @@
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease, padding 0.2s ease;
-    padding: 0 1rem; /* horizontal padding matches header’s px-4 */
+    padding: 0 1rem; /* horizontal padding matches header's px-4 */
   }
   
   /* Expanded state: reveal content */
@@ -300,15 +300,43 @@
   }
   
   .itemListEntry {
-    font-size: 0.875rem; /* 14px */
-    color: #e2e8f0; /* slate-200 */
-    background-color: #1e293b; /* bg-slate-800 (solid) */
-    padding: 0.5rem; /* p-2 */
-    border-radius: 0.25rem; /* rounded */
-    transition: background-color 0.2s;
+    padding: 0.75rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    margin-bottom: 0.5rem;
   }
   
   .itemListEntry:hover {
-    background-color: #334155; /* bg-slate-700 */
+    background-color: rgba(51, 65, 85, 0.5); /* slate-700 with opacity */
+    border-color: #475569; /* slate-600 */
+  }
+  
+  .activeItem {
+    background-color: rgba(167, 139, 250, 0.1); /* purple-400 with low opacity */
+    border-color: #a78bfa; /* purple-400 */
+  }
+  
+  .termName {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #e2e8f0; /* slate-200 */
+    margin-bottom: 0.25rem;
+  }
+  
+  .termDescription {
+    font-size: 0.75rem;
+    color: #94a3b8; /* slate-400 */
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+  }
+  
+  .termContext {
+    font-size: 0.75rem;
+    color: #64748b; /* slate-500 */
+    line-height: 1.25;
+    padding-left: 0.5rem;
+    border-left: 2px solid #475569; /* slate-600 */
   }
   

@@ -54,6 +54,16 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
     let content = editableContent;
     console.log('Processing content:', content); // Debug log
 
+    // First collect all matches (both terms and errors)
+    type Match = {
+      start: number;
+      end: number;
+      text: string;
+      type: 'term' | 'error';
+      data: any;
+    };
+    const matches: Match[] = [];
+
     // Process terms
     const terms = Object.keys(knownTerms);
     console.log('knownTerms', knownTerms);
@@ -61,7 +71,16 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
     if (terms.length > 0) {
       const escaped = terms.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
       const regex = new RegExp(`\\b(${escaped.join('|')})\\b`, 'gi');
-      content = content.replace(regex, match => `<span data-term="${match}">${match}</span>`);
+      let match;
+      while ((match = regex.exec(content)) !== null) {
+        matches.push({
+          start: match.index,
+          end: match.index + match[0].length,
+          text: match[0],
+          type: 'term',
+          data: match[0]
+        });
+      }
     }
 
     // Process errors
@@ -71,31 +90,66 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
       // Try to match with preceding context first
       const fullPattern = `${error.preceding}\\s*${escapedText}`;
       const fullRegex = new RegExp(fullPattern, 'gi');
+      let match;
       
-      // Also try to match just the error text
-      const simpleRegex = new RegExp(`\\b${escapedText}\\b`, 'gi');
-      
-      if (fullRegex.test(content)) {
-        console.log('Found full match for:', error.text); // Debug log
-        content = content.replace(fullRegex, match => {
-          const parts = match.split(new RegExp(`(${escapedText})`, 'i'));
-          return `${parts[0]}<span data-error="${encodeURIComponent(JSON.stringify({
+      while ((match = fullRegex.exec(content)) !== null) {
+        const errorStart = match.index + match[0].length - error.text.length;
+        matches.push({
+          start: errorStart,
+          end: errorStart + error.text.length,
+          text: error.text,
+          type: 'error',
+          data: {
             description: error.description,
             category: error.category
-          }))}">${parts[1]}</span>`;
+          }
         });
-      } else if (simpleRegex.test(content)) {
-        console.log('Found simple match for:', error.text); // Debug log
-        content = content.replace(simpleRegex, match => 
-          `<span data-error="${encodeURIComponent(JSON.stringify({
-            description: error.description,
-            category: error.category
-          }))}">${match}</span>`
-        );
+      }
+      
+      // If no match with context, try just the error text
+      if (!fullRegex.test(content)) {
+        const simpleRegex = new RegExp(`\\b${escapedText}\\b`, 'gi');
+        while ((match = simpleRegex.exec(content)) !== null) {
+          matches.push({
+            start: match.index,
+            end: match.index + match[0].length,
+            text: match[0],
+            type: 'error',
+            data: {
+              description: error.description,
+              category: error.category
+            }
+          });
+        }
       }
     });
 
-    return content;
+    // Sort matches by start position
+    matches.sort((a, b) => a.start - b.start);
+
+    // Filter out overlapping matches (keep earlier ones)
+    const filteredMatches = matches.reduce((acc: Match[], curr) => {
+      const lastMatch = acc[acc.length - 1];
+      if (!lastMatch || curr.start >= lastMatch.end) {
+        acc.push(curr);
+      }
+      return acc;
+    }, []);
+
+    // Apply highlights from end to start to avoid position shifts
+    let result = content;
+    for (let i = filteredMatches.length - 1; i >= 0; i--) {
+      const match = filteredMatches[i];
+      const before = result.slice(0, match.start);
+      const after = result.slice(match.end);
+      if (match.type === 'term') {
+        result = `${before}<span data-term="${match.data}">${match.text}</span>${after}`;
+      } else {
+        result = `${before}<span data-error="${encodeURIComponent(JSON.stringify(match.data))}">${match.text}</span>${after}`;
+      }
+    }
+
+    return result;
   }, [editableContent, knownTerms]);
 
   const markdownComponents = useMemo(() => ({
@@ -122,7 +176,7 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
 
       if (term) {
         const handleEnter = (e: React.MouseEvent<HTMLSpanElement>) => {
-          onTermHover(term, e.clientX, e.clientY, 'purple');
+          onTermHover(term, e.clientX, e.clientY, 'purple', knownTerms[term]);
         };
         const handleClick = () => onTermClick?.(term);
         return (
@@ -139,7 +193,7 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
       }
       return <span {...props}>{children}</span>;
     },
-  }), [onTermHover, onTermLeave, onTermClick]);
+  }), [onTermHover, onTermLeave, onTermClick, knownTerms]);
 
   const handleSave = () => {
     const updatedFrontmatter: Frontmatter = { ...editableFrontmatter, title, tags };

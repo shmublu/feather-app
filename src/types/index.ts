@@ -18,6 +18,10 @@ export interface TermData {
   category: string;
 }
 
+export interface WikiTerm extends TermData {
+  text: string;
+}
+
 export interface WikiTerms {
   [key: string]: TermData;
 }

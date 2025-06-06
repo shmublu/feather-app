@@ -1,140 +1,128 @@
 [  
   {  
-    "preceding": "“George, I wish you’d",  
-    "text": "George Hadley",  
-    "description": "The father, husband, and head of the household, concerned about the nursery and the children’s emotional state.",  
+    "preceding": "“George, I wish you’d look at the",  
+    "text": "nursery.",  
+    "description": "The children's virtual reality room where simulations are created",  
+    "category": "Locations"  
+  },  
+  {  
+    "preceding": "“Well,” said George",  
+    "text": "Hadley.",  
+    "description": "Father of Wendy and Peter, husband of Lydia, protagonist who seeks to control the nursery",  
     "category": "Characters"  
   },  
   {  
-    "preceding": "His wife was standing",  
-    "text": "Lydia Hadley",  
-    "description": "George’s wife, mother of Wendy and Peter, emotionally unsettled by the nursery’s realism.",  
+    "preceding": "They walked down the hall of their HappyLife",  
+    "text": "Home,",  
+    "description": "The high-tech automated house inhabited by the Hadley family",  
+    "category": "Locations"  
+  },  
+  {  
+    "preceding": "“It’s just that it is different now",  
+    "text": "than it was.”",  
+    "description": "Expression of Lydia Hadley's unease about changes in the nursery",  
+    "category": "Timeline"  
+  },  
+  {  
+    "preceding": "“What would a psychologist want with a",  
+    "text": "nursery?”",  
+    "description": "Lydia’s suggestion to involve a psychologist to examine the nursery",  
+    "category": "Timeline"  
+  },  
+  {  
+    "preceding": "“David, you’re a",  
+    "text": "psychologist.”",  
+    "description": "Peter David McClean’s profession, called in to evaluate the nursery’s effects",  
     "category": "Characters"  
   },  
   {  
-    "preceding": "“Daddy, Daddy, Daddy!” sang the",  
-    "text": "Wendy",  
-    "description": "Daughter of George and Lydia, one of the two children who use and manipulate the nursery.",  
-    "category": "Characters"  
+    "preceding": "Now hidden machines were beginning to blow a wind containing prepared smells",  
+    "text": "toward the two people in the middle of the baked veldt.",  
+    "description": "The nursery activates olfactory simulation, intensifying realism of the African veldt",  
+    "category": "Events"  
   },  
   {  
-    "preceding": "“Daddy, Mommy, come quick–quick!”",  
-    "text": "Peter",  
-    "description": "Son of George and Lydia, Wendy’s brother, equally enmeshed in the nursery’s African fantasy.",  
+    "preceding": "The lions came running at",  
+    "text": "them.",  
+    "description": "Climax of the first violent simulation where the lions 'attack' the parents",  
+    "category": "Events"  
+  },  
+  {  
+    "preceding": "“Come on, room! I demand",  
+    "text": "Aladdin!”",  
+    "description": "George’s failed attempt to change the nursery’s programmed scenario",  
+    "category": "Events"  
+  },  
+  {  
+    "preceding": "“Hello, Mom. Hello, Dad.”",  
+    "text": "Wendy and Peter were coming happily in the front door,",  
+    "description": "The children’s return, denying any African simulation, contradicting their parents’ experience",  
+    "category": "Timeline"  
+  },  
+  {  
+    "preceding": "There was a green, lovely",  
+    "text": "forest,",  
+    "description": "The nursery’s new South American/forest simulation with Rima the bird girl",  
+    "category": "Locations"  
+  },  
+  {  
+    "preceding": "“I have a feeling it’ll be Africa again",  
+    "text": "before then.”",  
+    "description": "Lydia’s suspicion that the children’s mental patterns will restore the African veldt",  
+    "category": "Timeline"  
+  },  
+  {  
+    "preceding": "A moment later they heard the",  
+    "text": "screams.",  
+    "description": "The second instance of off-screen screams signaling parental peril",  
+    "category": "Events"  
+  },  
+  {  
+    "preceding": "“Father?” asked",  
+    "text": "Peter the next morning.",  
+    "description": "Peter addressing George in the aftermath of the nursery incidents",  
     "category": "Characters"  
   },  
   {  
     "preceding": "“Am I on time?” said",  
-    "text": "David McClean",  
-    "description": "A child psychologist called in to evaluate the dangers of the nursery.",  
+    "text": "David McClean.",  
+    "description": "Introduction of David McClean arriving to evaluate the troubled nursery",  
     "category": "Characters"  
   },  
   {  
-    "preceding": "There was a green, lovely forest, a lovely river, a purple mountain, high voices singing. And there was",  
-    "text": "Rima the bird girl",  
-    "description": "A character from South American jungle fantasy created by the children in the nursery.",  
-    "category": "Characters"  
+    "preceding": "They walked in on the children without",  
+    "text": "knocking.",  
+    "description": "The parents and McClean abruptly enter the nursery during the children’s simulation",  
+    "category": "Events"  
   },  
   {  
-    "preceding": "They walked down the hall of their",  
-    "text": "HappyLife Home",  
-    "description": "The fully automated smart house purchased by the Hadleys, which provides food, comfort, and entertainment.",  
-    "category": "Locations"  
+    "preceding": "They went to the control box",  
+    "text": "together and threw the switch that killed the nursery.",  
+    "description": "The decisive action by adults to disable the nursery permanently",  
+    "category": "Events"  
   },  
   {  
-    "preceding": "His wife was standing in the middle of the",  
-    "text": "kitchen",  
-    "description": "Part of the HappyLife Home where the stove cooks supper and machines provide assistance.",  
-    "category": "Locations"  
-  },  
-  {  
-    "preceding": "They walked down the hall of their HappyLife Home, which had cost them thirty thousand dollars with everything included. This house which clothed and fed and rocked them to sleep and played and sang and was good to them. Their approach was sensed by a hidden switch and",  
-    "text": "hall",  
-    "description": "The corridor in the automated house leading to various rooms, including the nursery.",  
-    "category": "Locations"  
-  },  
-  {  
-    "preceding": "They stood on the grass-like floor of the",  
-    "text": "nursery",  
-    "description": "A high-tech playroom that materializes the children’s thoughts in three-dimensional, sensory-immersive environments.",  
-    "category": "Locations"  
-  },  
-  {  
-    "preceding": "Soon an African veldt appeared, in three dimensions, on all sides, in color.",  
-    "text": "African veldt",  
-    "description": "A recurring fantasy scene of a hot African plain with lions and vultures, generated by the nursery.",  
-    "category": "Locations"  
-  },  
-  {  
-    "preceding": "There was a green, lovely forest, a lovely river, a purple mountain, high voices singing. And there was Rima the bird girl, lovely and mysterious. She was hiding in the trees with colorful butterflies, like flowers coming to life, flying about her long hair. The African veldt was gone.",  
-    "text": "forest scene",  
-    "description": "An alternate environment created by Wendy and Peter, replacing the African veldt with a South American jungle and Rima.",  
-    "category": "Locations"  
-  },  
-  {  
-    "preceding": "They went off to the air tube, where a wind blew them like brown leaves up to their sleeping rooms.",  
-    "text": "air tube",  
-    "description": "A pneumatic transport system in the house that carries occupants between floors.",  
-    "category": "Locations"  
-  },  
-  {  
-    "preceding": "First time they approach the nursery:",  
-    "text": "Initial inspection of the nursery",  
-    "description": "George and Lydia walk into the nursery’s African veldt environment and experience its realism for the first time.",  
+    "preceding": "“Don’t let them switch off the nursery and the",  
+    "text": "house,” he was saying.",  
+    "description": "Peter’s plea to preserve the nursery and automated house, showing children’s control",  
     "category": "Timeline"  
   },  
   {  
-    "preceding": "“And lock the nursery for a few days until I can get over this.”",  
-    "text": "First lockdown",  
-    "description": "Lydia insists on locking the nursery after their frightening encounter with the lions.",  
-    "category": "Timeline"  
+    "preceding": "They went downstairs in the air tube and ran down the",  
+    "text": "hall.",  
+    "description": "Parents pursuing the children back to the nursery for the final confrontation",  
+    "category": "Events"  
   },  
   {  
-    "preceding": "They ate alone, for Wendy and Peter were at a special plastic fair across town.",  
-    "text": "Children away at plastic fair",  
-    "description": "Wendy and Peter are absent during dinner, indicating their growing independence.",  
-    "category": "Timeline"  
+    "preceding": "The veldt was empty save for the lions",  
+    "text": "waiting, looking at them.",  
+    "description": "Final scene where the parents are confronted by real lions in the nursery",  
+    "category": "Events"  
   },  
   {  
-    "preceding": "He let the lights shine softly on ahead of him, turn off behind him as he walked quietly to the nursery door.",  
-    "text": "George’s solo re-entry",  
-    "description": "George unlocks and enters the nursery alone to investigate lingering disturbances.",  
-    "category": "Timeline"  
-  },  
-  {  
-    "preceding": "“There’s no Africa in the nursery,” said Peter simply.",  
-    "text": "Children deny African imagery",  
-    "description": "Wendy and Peter claim the African veldt is gone, showing they control the nursery’s content.",  
-    "category": "Timeline"  
-  },  
-  {  
-    "preceding": "Long before you knew what death was you were wishing it on someone else.",  
-    "text": "George finds his wallet",  
-    "description": "George discovers his bloodstained wallet in the nursery, confirming the lions have been real to some degree.",  
-    "category": "Timeline"  
-  },  
-  {  
-    "preceding": "A moment later they heard the screams. Two screams. Two people screaming from downstairs. And then a roar of lions.",  
-    "text": "Night screams and disappearance",  
-    "description": "George and Lydia hear screams and realize Wendy and Peter have broken into the nursery and may be in danger.",  
-    "category": "Timeline"  
-  },  
-  {  
-    "preceding": "They went to the control box together and threw the switch that killed the nursery.",  
-    "text": "Final shutdown",  
-    "description": "George and David McClean switch off the nursery permanently, triggering the children’s panic.",  
-    "category": "Timeline"  
-  },  
-  {  
-    "preceding": "The lions! Mr. Hadley looked at his wife and they turned and looked back at the beasts edging slowly forward, knees bent, tails in the air.",  
-    "text": "Parents locked in nursery",  
-    "description": "The nursery door locks itself from the outside, trapping George and Lydia inside with the lions.",  
-    "category": "Timeline"  
-  },  
-  {  
-    "preceding": "“Well, here I am,” said David McClean from the nursery door.",  
-    "text": "McClean’s arrival at the end",  
-    "description": "David McClean arrives after the parents’ fate is sealed and observes the children calmly picnicking amidst the veldt and lions.",  
+    "preceding": "“Well, here I am,” said",  
+    "text": "David McClean from the nursery door.",  
+    "description": "McClean returns to find the children alone and lions feasting – epilogue",  
     "category": "Timeline"  
   }  
 ]

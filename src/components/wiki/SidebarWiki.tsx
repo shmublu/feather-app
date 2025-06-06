@@ -21,7 +21,8 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ terms, onSelectTerm, selected
       term.category.toLowerCase().includes(searchTerm.toLowerCase())
   ).sort();
 
-  console.log(filteredTerms);
+  console.log('terms', terms);
+  console.log('filteredTerms', filteredTerms);
 
   return (
     <aside className={`${styles.sidebar} ${isMobileMenuOpen ? styles.sidebarOpen : styles.sidebarClosed}`}>
