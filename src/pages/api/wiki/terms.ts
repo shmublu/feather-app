@@ -5,7 +5,7 @@ import path from 'path';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import type { WikiTerms } from '../../../types';
 
-import { create_client, generate_struct, generate_errors } from '../index';
+import { create_client, generate_errors } from '../index';
 
 type ErrorResponse = {
   message: string;
@@ -28,7 +28,12 @@ export default async function handler(
   if (req.method === 'GET') {
     try {
       const fileContents = fs.readFileSync(termsFilePath, 'utf8');
-      const terms: WikiTerms = JSON.parse(fileContents);
+      let terms: WikiTerms = [];
+      try {
+        const parsed = JSON.parse(fileContents);
+        if (Array.isArray(parsed)) terms = parsed;
+      } catch {}
+      terms = terms.map(t => ({ ...t, title: t.title || t.text }));
       res.status(200).json(terms);
     } catch (error) {
       console.error('Error reading wiki terms:', error);
@@ -36,18 +41,21 @@ export default async function handler(
     }
   } else if (req.method === 'POST') {
     try {
-      const newTerms: WikiTerms = req.body;
-      if (typeof newTerms !== 'object') {
-        return res.status(400).json({ message: 'Invalid payload: terms object expected.' });
+      let newTerms: WikiTerms = [];
+      try {
+        const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
+        if (Array.isArray(body)) newTerms = body;
+      } catch {
+        return res.status(400).json({ message: 'Invalid JSON payload.' });
       }
-      console.log('newTerms', newTerms);
+      newTerms = newTerms.map(t => ({ ...t, title: t.title || t.text }));
       fs.writeFileSync(newTermsFilePath, JSON.stringify(newTerms, null, 2), 'utf8');
 
       const client = await create_client();
       const struct1 = JSON.parse(fs.readFileSync(termsFilePath, 'utf8'));
       const struct2 = JSON.parse(fs.readFileSync(newTermsFilePath, 'utf8'));
       const inputText = fs.readFileSync(inputTextFilePath, 'utf8');
-      const errors = await generate_errors(client, inputText, struct1, struct2, errorsFilePath);
+      await generate_errors(client, inputText, struct1, struct2, errorsFilePath);
       res.status(200).json({ message: 'Wiki terms saved successfully', terms: newTerms });
     } catch (error) {
       console.error('Error saving wiki terms:', error);

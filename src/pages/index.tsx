@@ -15,7 +15,7 @@ const HomePage: NextPage = () => {
   const [fictionData, setFictionData] = useState<FictionData>({ frontmatter: {}, markdownContent: '', wordCount: 0 });
   const [knownTerms, setKnownTerms] = useState<KnownTerms>({});
   const [hoveredTermInfo, setHoveredTermInfo] = useState<HoveredTermInfo | null>(null);
-  const [wikiTerms, setWikiTerms] = useState<WikiTerms>({});
+  const [wikiTerms, setWikiTerms] = useState<WikiTerms>([]);
   const [selectedTermKey, setSelectedTermKey] = useState<string | null>(null);
   const [isTooltipVisible, setIsTooltipVisible] = useState<boolean>(false);
   const [isWikiOpen, setIsWikiOpen] = useState<boolean>(false);
@@ -38,22 +38,36 @@ const HomePage: NextPage = () => {
       const res = await fetch('/api/wiki/terms');
       if (!res.ok) throw new Error('Failed to fetch wiki terms');
       const termsData: WikiTerms = await res.json();
-      setWikiTerms(termsData);
+      const normalized = termsData.map(term => ({ ...term, title: term.title || term.text }));
+      setWikiTerms(normalized);
       const formatted: KnownTerms = {};
-      console.log('termsData', termsData);
-      for (const term in termsData) {
-        formatted[termsData[term].text] = termsData[term].description;
-      }
+      normalized.forEach(term => {
+        formatted[term.text] = term.description;
+      });
       setKnownTerms(formatted);
     } catch (error) {
       console.error(error);
     }
   };
 
+  const buildWiki = async () => {
+    try {
+      await fetch('/api/wiki/build', { method: 'POST' });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
-    setIsLoading(true);
-    Promise.all([fetchFictionContent(), fetchWikiTerms()]).finally(() => setIsLoading(false));
-    setActiveSidebarTab('fiction');
+    const load = async () => {
+      setIsLoading(true);
+      await fetchFictionContent();
+      await buildWiki();
+      await fetchWikiTerms();
+      setIsLoading(false);
+      setActiveSidebarTab('fiction');
+    };
+    void load();
   }, []);
 
   const handleSaveContent = async (newMarkdownContent: string, newFrontmatter: typeof fictionData.frontmatter) => {
@@ -82,11 +96,12 @@ const HomePage: NextPage = () => {
       });
       if (!res.ok) throw new Error('Failed to save terms');
       const result = await res.json();
-      setWikiTerms(result.terms);
+      const normalized = (result.terms as WikiTerms).map(t => ({ ...t, title: t.title || t.text }));
+      setWikiTerms(normalized);
       const formatted: KnownTerms = {};
-      for (const term in result.terms) {
-        formatted[result.terms[term].text] = result.terms[term].description;
-      }
+      normalized.forEach(term => {
+        formatted[term.text] = term.description;
+      });
       console.log('updatedTerms', updatedTerms);
       console.log('wikiTerms', result.terms);
       console.log('formatted', formatted);

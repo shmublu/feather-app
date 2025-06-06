@@ -5,9 +5,6 @@ import path from 'path';
 import matter from 'gray-matter';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import type { FictionData, Frontmatter } from '../../../types';
-
-import { create_client, generate_struct, generate_errors } from '../index';
-
 type ErrorResponse = {
   message: string;
 };
@@ -17,8 +14,6 @@ interface SaveResponse extends FictionData {
 }
 
 const contentFilePath = path.join(process.cwd(), 'src', 'data', 'input.md');
-const structFilePath = path.join(process.cwd(), 'src', 'data', 'terms.json');
-const newStructFilePath = path.join(process.cwd(), 'src', 'data', 'terms_new.json');
 
 export default async function handler(
   req: NextApiRequest,
@@ -30,10 +25,7 @@ export default async function handler(
       const { data, content } = matter(fileContents);
       const wordCount = content.split(/\s+/).filter(Boolean).length;
 
-      const client = await create_client();
-      const struct = await generate_struct(client, content, structFilePath);
-      // copy struct to newStructFilePath
-      fs.copyFileSync(structFilePath, newStructFilePath);
+
 
       res.status(200).json({ frontmatter: data as Frontmatter, markdownContent: content, wordCount });
     } catch (error) {

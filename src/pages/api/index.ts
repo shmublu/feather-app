@@ -6,6 +6,7 @@ import { apiKey } from "./config";
 interface StructureEntry {
     preceding: string;
     text: string;
+    title: string;
     description: string;
     category: string;
 }
@@ -26,6 +27,7 @@ async function generate_struct(client: OpenAI, input_text: string, output_filena
     Please output your answer as a JSON list of dictionaries, each with the following fields:
     - "preceding": a few words preceding the entry to guarnatee uniqueness. It should match with a part of the text exactly.
     - "text": the text corresponding to the entry. It should match with a part of the text exactly.
+    - "title": a short display name for this entry, used in the wiki UI.
     - "description": the contents of the entry
     - "category": the category of the entry. Should be one of the following: Characters (for actors), Timeline (for events), Locations (for locations).
     

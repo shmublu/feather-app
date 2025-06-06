@@ -13,18 +13,17 @@ export interface FictionData {
   wordCount: number;
 }
 
-export interface TermData {
+export interface WikiTerm {
+  /** Text snippet in the source used for highlighting */
+  text: string;
+  /** Display title shown in the UI */
+  title: string;
   description: string;
   category: string;
+  preceding?: string;
 }
 
-export interface WikiTerm extends TermData {
-  text: string;
-}
-
-export interface WikiTerms {
-  [key: string]: TermData;
-}
+export type WikiTerms = WikiTerm[];
 
 // Used for the simpler key:description mapping in the fiction editor
 export interface KnownTerms {
