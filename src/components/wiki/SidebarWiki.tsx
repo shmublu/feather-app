@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import styles from './SidebarWiki.module.css';
-import { BookOpen, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import type { WikiTerms } from '../../types';
 
 interface SidebarWikiProps {

@@ -9,13 +9,13 @@ import EditorAreaFiction from '../components/fiction/EditorAreaFiction';
 import SidebarTabs from '../components/common/SidebarTabs';
 import WikiEditor from '../components/wiki/WikiEditor';
 import Tooltip from '../components/common/Tooltip';
-import type { FictionData, KnownTerms, WikiTerms, HoveredTermInfo } from '../types';
+import type { FictionData, KnownTerms, WikiTerms, HoveredTermInfo, TermData } from '../types';
 
 const HomePage: NextPage = () => {
   const [fictionData, setFictionData] = useState<FictionData>({ frontmatter: {}, markdownContent: '', wordCount: 0 });
   const [knownTerms, setKnownTerms] = useState<KnownTerms>({});
   const [hoveredTermInfo, setHoveredTermInfo] = useState<HoveredTermInfo | null>(null);
-  const [wikiTerms, setWikiTerms] = useState<WikiTerms>({});
+  const [wikiTerms, setWikiTerms] = useState<WikiTerms>([]);
   const [selectedTermKey, setSelectedTermKey] = useState<string | null>(null);
   const [isTooltipVisible, setIsTooltipVisible] = useState<boolean>(false);
   const [isWikiOpen, setIsWikiOpen] = useState<boolean>(false);
@@ -41,9 +41,9 @@ const HomePage: NextPage = () => {
       setWikiTerms(termsData);
       const formatted: KnownTerms = {};
       console.log('termsData', termsData);
-      for (const term in termsData) {
-        formatted[termsData[term].text] = termsData[term].description;
-      }
+      termsData.forEach(term => {
+        formatted[term.text] = term.description;
+      });
       setKnownTerms(formatted);
     } catch (error) {
       console.error(error);
@@ -83,9 +83,9 @@ const HomePage: NextPage = () => {
       const result = await res.json();
       setWikiTerms(result.terms);
       const formatted: KnownTerms = {};
-      for (const term in result.terms) {
-        formatted[result.terms[term].text] = result.terms[term].description;
-      }
+      result.terms.forEach((term: TermData) => {
+        formatted[term.text] = term.description;
+      });
       console.log('updatedTerms', updatedTerms);
       console.log('wikiTerms', result.terms);
       console.log('formatted', formatted);

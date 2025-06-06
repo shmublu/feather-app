@@ -16,18 +16,20 @@ async function create_client(): Promise<OpenAI> {
 
 async function generate_struct(client: OpenAI, input_text: string, output_filename: string): Promise<void> {
     const prompt = `
-    You will be given an input text. Your goal is to structure the text into:
-    - Characters: important actors
-    - Timeline: important events
-    - Locations: important locations
-    
-    The 3 categories can refer to abstract objects.
-    
+    You will be given an input text. Your goal is to structure the text into the following categories:
+    - Entities: companies, products or organizations
+    - Concepts: key ideas or technologies
+    - Evidence: factual statements or data points
+    - Arguments: claims or theses made in the text
+    - Financials: monetary figures such as revenue or market capitalization
+
+    These categories can refer to abstract objects as well.
+
     Please output your answer as a JSON list of dictionaries, each with the following fields:
-    - "preceding": a few words preceding the entry to guarnatee uniqueness
+    - "preceding": a few words preceding the entry to guarantee uniqueness
     - "text": the text corresponding to the entry
     - "description": the contents of the entry
-    - "category": the category of the entry. Should be one of the following: Characters, Timeline, Locations.
+    - "category": one of: Entities, Concepts, Evidence, Arguments, Financials
     
     Here is the input text:
     ${input_text}

@@ -19,6 +19,8 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
   const [currentDescription, setCurrentDescription] = useState<string>('');
   const [currentCategory, setCurrentCategory] = useState<string>('');
   const [currentPreceding, setCurrentPreceding] = useState<string>('');
+  const [currentLinks, setCurrentLinks] = useState<string>('');
+  const [currentFinancial, setCurrentFinancial] = useState<string>('');
   const [isAddingNew, setIsAddingNew] = useState<boolean>(false);
 
 
@@ -31,12 +33,16 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
       setCurrentDescription(hasTerm.description || '');
       setCurrentCategory(hasTerm.category || '');
       setCurrentPreceding(hasTerm.preceding || '');
+      setCurrentLinks((hasTerm.links || []).join(', '));
+      setCurrentFinancial(hasTerm.financial || '');
       setIsEditing(false);
     } else if (!selectedTermKey && !isAddingNew) {
       setCurrentTerm('');
       setCurrentDescription('');
       setCurrentCategory('');
       setCurrentPreceding('');
+      setCurrentLinks('');
+      setCurrentFinancial('');
       setIsEditing(false);
     }
   }, [selectedTermKey, terms, isAddingNew]);
@@ -69,6 +75,8 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
       description: currentDescription,
       category: currentCategory,
       preceding: currentPreceding,
+      links: currentLinks.split(',').map(l => l.trim()).filter(Boolean),
+      financial: currentFinancial,
     });
 
     const success = await onSave(updatedTerms);
@@ -89,10 +97,12 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
     setCurrentDescription('');
     setCurrentCategory('');
     setCurrentPreceding('');
+    setCurrentLinks('');
+    setCurrentFinancial('');
   };
 
   const handleDelete = async () => {
-    if (!selectedTermKey || !terms[selectedTermKey]) return;
+    if (!selectedTermKey || !terms.find(t => t.text === selectedTermKey)) return;
     if (confirm(`Are you sure you want to delete "${selectedTermKey}"?`)) {
       const updatedTerms = [ ...terms ];
       updatedTerms.splice(updatedTerms.findIndex(term => term.text === selectedTermKey), 1);
@@ -113,10 +123,14 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
       setCurrentDescription(hasTerm.description);
       setCurrentCategory(hasTerm.category);
       setCurrentPreceding(hasTerm.preceding);
+      setCurrentLinks((hasTerm.links || []).join(', '));
+      setCurrentFinancial(hasTerm.financial || '');
     } else {
       setCurrentTerm('');
       setCurrentDescription('');
       setCurrentCategory('');
+      setCurrentLinks('');
+      setCurrentFinancial('');
     }
   };
 
@@ -203,6 +217,40 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
             />
           ) : (
             <p className={`${styles.fieldValue} ${styles.descriptionText}`}>{currentDescription || '(no description)'}</p>
+          )}
+        </div>
+        <div className={styles.fieldGroup}>
+          <label htmlFor="term-links" className={styles.label}>Related Terms:</label>
+          {isEditing ? (
+            <input
+              id="term-links"
+              type="text"
+              value={currentLinks}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCurrentLinks(e.target.value)}
+              placeholder="Comma separated list"
+              className="input-base"
+            />
+          ) : (
+            <div className={styles.fieldValue}>
+              {currentLinks.split(',').filter(Boolean).map(link => (
+                <button key={link.trim()} className={styles.linkButton} onClick={() => onSelectTerm(link.trim())}>{link.trim()}</button>
+              ))}
+            </div>
+          )}
+        </div>
+        <div className={styles.fieldGroup}>
+          <label htmlFor="term-financial" className={styles.label}>Financial Info:</label>
+          {isEditing ? (
+            <input
+              id="term-financial"
+              type="text"
+              value={currentFinancial}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCurrentFinancial(e.target.value)}
+              placeholder="e.g., Market cap $100B"
+              className="input-base"
+            />
+          ) : (
+            <p className={styles.fieldValue}>{currentFinancial || '(none)'}</p>
           )}
         </div>
       </div>
