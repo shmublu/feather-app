@@ -56,7 +56,29 @@ const HomePage: NextPage = () => {
     setActiveSidebarTab('fiction');
   }, []);
 
+  const applyWikiEdits = async (oldText: string, newText: string) => {
+    try {
+      const res = await fetch('/api/wiki/applyEdits', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ oldText, newText, wiki: wikiTerms }),
+      });
+      if (!res.ok) throw new Error('Failed to update wiki');
+      const result = await res.json();
+      const updated = result.wiki;
+      setWikiTerms(updated);
+      const formatted: KnownTerms = {};
+      for (const term in updated) {
+        formatted[updated[term].text] = updated[term].description;
+      }
+      setKnownTerms(formatted);
+    } catch (err) {
+      console.error('Wiki update error:', err);
+    }
+  };
+
   const handleSaveContent = async (newMarkdownContent: string, newFrontmatter: typeof fictionData.frontmatter) => {
+    const oldText = fictionData.markdownContent;
     try {
       const res = await fetch('/api/fiction/content', {
         method: 'POST',
@@ -66,6 +88,7 @@ const HomePage: NextPage = () => {
       if (!res.ok) throw new Error('Failed to save content');
       const updatedData: FictionData = await res.json();
       setFictionData(updatedData);
+      await applyWikiEdits(oldText, newMarkdownContent);
       alert('Content saved!');
     } catch (error) {
       console.error('Save error:', error);
