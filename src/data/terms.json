@@ -1,47 +1,125 @@
 [
   {
+    "text": "Smartphone market size 2021",
+    "description": "Valued at USD 457.18 billion according to market research.",
+    "category": "Evidence",
+    "financial": "USD 457.18B",
+    "links": ["COVID-19 pandemic impact", "Smartphone market forecast 2029"]
+  },
+  {
+    "text": "Smartphone market forecast 2029",
+    "description": "Projected to reach USD 792.51 billion by 2029 with a CAGR of 7.3% from 2022.",
+    "category": "Financials",
+    "financial": "USD 792.51B by 2029",
+    "links": ["Smartphone market size 2021"]
+  },
+  {
+    "text": "COVID-19 pandemic impact",
+    "description": "Lockdowns and supply chain issues caused a 7.8% decline in 2020 shipments.",
+    "category": "Evidence",
+    "links": ["Work from home", "Semiconductor shortage"]
+  },
+  {
+    "text": "5G technology",
+    "description": "Next-generation mobile standard driving new handset demand and IoT services.",
+    "category": "Concept",
+    "links": ["Ever-growing 5G demand", "Apple Inc.", "Samsung Electronics"]
+  },
+  {
+    "text": "Ever-growing 5G demand",
+    "description": "Trend of consumers replacing devices to access 5G networks; GSMA expects 20% of connections to be 5G by 2025.",
+    "category": "Argument",
+    "links": ["5G technology"]
+  },
+  {
     "text": "Apple Inc.",
-    "description": "Leading manufacturer of the iPhone. Dominates the premium smartphone segment.",
+    "description": "U.S. smartphone leader known for the iPhone and investments in 5G and silicon engineering.",
     "category": "Entity",
-    "links": ["iPhone", "Premium market resilience"],
-    "financial": "Market cap over $2.7 trillion in 2023"
+    "financial": "Investing USD 430B in U.S. infrastructure",
+    "links": ["iPhone 13 announcement", "Smartphone market forecast 2029"]
   },
   {
     "text": "Samsung Electronics",
-    "description": "South Korean conglomerate known for the Galaxy smartphone line.",
+    "description": "South Korean conglomerate behind the Galaxy series and numerous 5G launches.",
     "category": "Entity",
-    "links": ["Galaxy", "Android dominance"],
-    "financial": "Market cap around $320 billion in 2023"
+    "links": ["Galaxy Z Fold3 5G", "Smartphone market size 2021"]
   },
   {
-    "text": "Global smartphone shipments 2023",
-    "description": "IDC estimates about 1.2 billion units shipped worldwide, down 5% from 2022.",
-    "category": "Evidence",
-    "links": ["Apple Inc.", "Samsung Electronics", "5G adoption"]
+    "text": "Sony Group Corporation",
+    "description": "Maker of the Xperia PRO-I focusing on advanced imaging capabilities.",
+    "category": "Entity",
+    "links": ["Xperia PRO-I launch"]
   },
   {
-    "text": "Premium market resilience",
-    "description": "High-end devices remained stable despite the overall downturn, largely due to Apple's loyal customer base.",
-    "category": "Argument",
-    "links": ["Apple Inc."]
+    "text": "Oppo",
+    "description": "Chinese brand expanding outside of China to capture midrange consumers.",
+    "category": "Entity",
+    "links": ["Emerging Asia Pacific brands"]
   },
   {
-    "text": "5G adoption",
-    "description": "More than half of smartphones shipped in 2023 supported 5G networks.",
-    "category": "Concept",
-    "links": ["Global smartphone shipments 2023"]
+    "text": "Vivo",
+    "description": "Introduced India’s first color-changing smartphone in 2022 and Y33s in Kenya in 2021.",
+    "category": "Entity",
+    "links": ["Emerging Asia Pacific brands"]
   },
   {
     "text": "Xiaomi",
-    "description": "Chinese brand gaining market share in Southeast Asia with competitively priced models.",
+    "description": "Rapidly growing manufacturer with strong presence in Southeast Asia.",
     "category": "Entity",
-    "financial": "Revenue over $37 billion in 2023",
-    "links": ["Emerging brands"]
+    "links": ["Emerging Asia Pacific brands"]
   },
   {
-    "text": "Emerging brands",
-    "description": "Manufacturers like Xiaomi and Oppo expanding outside China to capture midrange consumers.",
+    "text": "Emerging Asia Pacific brands",
+    "description": "Group of companies including Oppo, Vivo and Xiaomi gaining share in developing markets.",
     "category": "Argument",
-    "links": ["Xiaomi", "Oppo"]
+    "links": ["Oppo", "Vivo", "Xiaomi"]
+  },
+  {
+    "text": "Work from home",
+    "description": "Remote work practices that increased reliance on smartphones and online purchases.",
+    "category": "Concept",
+    "links": ["COVID-19 pandemic impact", "E-commerce growth"]
+  },
+  {
+    "text": "Semiconductor shortage",
+    "description": "Component shortages that raised costs and limited smartphone production through 2022.",
+    "category": "Argument",
+    "links": ["COVID-19 pandemic impact"]
+  },
+  {
+    "text": "E-commerce growth",
+    "description": "Fast-tracked online buying behaviors helping e-commerce achieve the highest CAGR among channels.",
+    "category": "Concept",
+    "links": ["Work from home"]
+  },
+  {
+    "text": "Production-linked incentive scheme",
+    "description": "Indian government program boosting local smartphone manufacturing and exports of 10.9 million units in 2020.",
+    "category": "Evidence",
+    "links": ["India market growth"]
+  },
+  {
+    "text": "India market growth",
+    "description": "India’s improved digital infrastructure and 5G adoption make it a lucrative market.",
+    "category": "Argument",
+    "links": ["Production-linked incentive scheme", "Vivo"]
+  },
+  {
+    "text": "Galaxy Z Fold3 5G",
+    "description": "Foldable device introduced by Samsung in August 2021.",
+    "category": "Event",
+    "links": ["Samsung Electronics"]
+  },
+  {
+    "text": "Xperia PRO-I launch",
+    "description": "Sony unveiled the Xperia PRO-I in October 2021 with 4K 120p video recording.",
+    "category": "Event",
+    "links": ["Sony Group Corporation"]
+  },
+  {
+    "text": "iPhone 13 announcement",
+    "description": "Apple announced the iPhone 13 lineup in September 2021 with sensor-shift stabilization.",
+    "category": "Event",
+    "links": ["Apple Inc."]
   }
 ]
