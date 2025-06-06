@@ -15,7 +15,8 @@ interface WikiEditorProps {
 
 const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave, onSelectTerm, setTerms }) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [currentTerm, setCurrentTerm] = useState<string>('');
+  const [currentTitle, setCurrentTitle] = useState<string>('');
+  const [currentText, setCurrentText] = useState<string>('');
   const [currentDescription, setCurrentDescription] = useState<string>('');
   const [currentCategory, setCurrentCategory] = useState<string>('');
   const [currentPreceding, setCurrentPreceding] = useState<string>('');
@@ -27,13 +28,15 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
     console.log('wikieditor selectedTermKey', selectedTermKey);
     const hasTerm = terms.find(term => term.text === selectedTermKey);
     if (selectedTermKey && hasTerm && !isAddingNew) {
-      setCurrentTerm(hasTerm.text);
+      setCurrentTitle(hasTerm.title || hasTerm.text);
+      setCurrentText(hasTerm.text);
       setCurrentDescription(hasTerm.description || '');
       setCurrentCategory(hasTerm.category || '');
       setCurrentPreceding(hasTerm.preceding || '');
       setIsEditing(false);
     } else if (!selectedTermKey && !isAddingNew) {
-      setCurrentTerm('');
+      setCurrentTitle('');
+      setCurrentText('');
       setCurrentDescription('');
       setCurrentCategory('');
       setCurrentPreceding('');
@@ -47,28 +50,30 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
   };
 
   const handleSaveEdit = async () => {
-    console.log('wikieditor handleSaveEdit', currentTerm, selectedTermKey);
-    if (!currentTerm.trim()) {
+    console.log('wikieditor handleSaveEdit', currentTitle, selectedTermKey);
+    if (!currentTitle.trim() || !currentText.trim()) {
       alert("Term name cannot be empty.");
       return;
     }
     const updatedTerms = [...terms];
 
-    const hasTerm = terms.find(term => term.text === currentTerm);
-    if (selectedTermKey && selectedTermKey !== currentTerm && hasTerm) {
-      alert(`A term named "${currentTerm}" already exists.`);
+    const hasTerm = terms.find(term => term.text === currentText);
+    if (selectedTermKey && selectedTermKey !== currentText && hasTerm) {
+      alert(`A term named "${currentText}" already exists.`);
       return;
     }
 
-    if (selectedTermKey && selectedTermKey !== currentTerm) {
+    if (selectedTermKey && selectedTermKey !== currentText) {
       updatedTerms.splice(updatedTerms.findIndex(term => term.text === selectedTermKey), 1);
     }
     else {
       updatedTerms.splice(updatedTerms.findIndex(term => term.text === currentTerm), 1);
     }
     
+
     updatedTerms.push({
-      text: currentTerm,
+      text: currentText,
+      title: currentTitle,
       description: currentDescription,
       category: currentCategory,
       preceding: currentPreceding,
@@ -80,8 +85,8 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
     if (success) {
       setIsEditing(false);
       setIsAddingNew(false);
-      if (selectedTermKey !== currentTerm) {
-        onSelectTerm(currentTerm);
+      if (selectedTermKey !== currentText) {
+        onSelectTerm(currentText);
       }
     }
   };
@@ -90,7 +95,8 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
     setIsAddingNew(true);
     setIsEditing(true);
     onSelectTerm(null);
-    setCurrentTerm('');
+    setCurrentTitle('');
+    setCurrentText('');
     setCurrentDescription('');
     setCurrentCategory('');
     setCurrentPreceding('');
@@ -114,12 +120,14 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
     setIsAddingNew(false);
     const hasTerm = terms.find(term => term.text === selectedTermKey);
     if (selectedTermKey && hasTerm) {
-      setCurrentTerm(hasTerm.text);
+      setCurrentTitle(hasTerm.title || hasTerm.text);
+      setCurrentText(hasTerm.text);
       setCurrentDescription(hasTerm.description);
       setCurrentCategory(hasTerm.category);
       setCurrentPreceding(hasTerm.preceding);
     } else {
-      setCurrentTerm('');
+      setCurrentTitle('');
+      setCurrentText('');
       setCurrentDescription('');
       setCurrentCategory('');
     }
@@ -142,13 +150,13 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
         {isEditing ? (
           <input
             type="text"
-            value={currentTerm}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCurrentTerm(e.target.value)}
-            placeholder="Term Name"
+            value={currentTitle}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCurrentTitle(e.target.value)}
+            placeholder="Title"
             className={`input-base ${styles.titleInput}`}
           />
         ) : (
-          <h2 className={styles.termTitle}>{currentTerm || "New Term"}</h2>
+          <h2 className={styles.termTitle}>{currentTitle || "New Term"}</h2>
         )}
         <div className={styles.actions}>
           {isEditing ? (
@@ -180,6 +188,21 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
         </div>
       </div>
       <div className={styles.content}>
+        <div className={styles.fieldGroup}>
+          <label htmlFor="term-text" className={styles.label}>Text in Story:</label>
+          {isEditing ? (
+            <input
+              id="term-text"
+              type="text"
+              value={currentText}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCurrentText(e.target.value)}
+              placeholder="e.g., his wife"
+              className="input-base"
+            />
+          ) : (
+            <p className={styles.fieldValue}>{currentText}</p>
+          )}
+        </div>
         <div className={styles.fieldGroup}>
           <label htmlFor="term-category" className={styles.label}>Category:</label>
           {isEditing ? (

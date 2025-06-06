@@ -51,7 +51,7 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
   const wordCount = useMemo(() => editableContent.split(/\s+/).filter(Boolean).length, [editableContent]);
 
   const processedContent = useMemo(() => {
-    let content = editableContent;
+    const content = editableContent;
     console.log('Processing content:', content); // Debug log
 
     // First collect all matches (both terms and errors)
@@ -60,7 +60,7 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
       end: number;
       text: string;
       type: 'term' | 'error';
-      data: any;
+      data: string | { description: string; category: string };
     };
     const matches: Match[] = [];
 

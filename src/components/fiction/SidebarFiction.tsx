@@ -130,8 +130,8 @@ const SidebarFiction: React.FC<SidebarFictionProps> = ({
               >
                 <ul className={styles.itemList}>
                   {item.items.map((term) => (
-                    <li 
-                      key={term.text} 
+                    <li
+                      key={term.text}
                       className={`${styles.itemListEntry} ${selectedTermKey === term.text ? styles.activeItem : ''}`}
                       onClick={() => onSelectTerm(term.text)}
                       role="button"
@@ -142,7 +142,7 @@ const SidebarFiction: React.FC<SidebarFictionProps> = ({
                         }
                       }}
                     >
-                      <div className={styles.termName}>{term.text}</div>
+                      <div className={styles.termName}>{term.title}</div>
                       {/* <div className={styles.termDescription}>{term.description}</div> */}
                     </li>
                   ))}
