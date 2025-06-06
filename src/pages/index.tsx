@@ -40,8 +40,9 @@ const HomePage: NextPage = () => {
       const termsData: WikiTerms = await res.json();
       setWikiTerms(termsData);
       const formatted: KnownTerms = {};
+      console.log('termsData', termsData);
       for (const term in termsData) {
-        formatted[term] = termsData[term].description;
+        formatted[termsData[term].text] = termsData[term].description;
       }
       setKnownTerms(formatted);
     } catch (error) {
@@ -83,8 +84,11 @@ const HomePage: NextPage = () => {
       setWikiTerms(result.terms);
       const formatted: KnownTerms = {};
       for (const term in result.terms) {
-        formatted[term] = result.terms[term].description;
+        formatted[result.terms[term].text] = result.terms[term].description;
       }
+      console.log('updatedTerms', updatedTerms);
+      console.log('wikiTerms', result.terms);
+      console.log('formatted', formatted);
       setKnownTerms(formatted);
       alert('Wiki terms saved!');
       return true;

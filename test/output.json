@@ -1,0 +1,32 @@
+[  
+  {  
+    "preceding": "And there was the sound of the lions quick, heavy breaths in the silent mid-day sun, and the smell of meat from their dripping mouths.",  
+    "text": "the lions",  
+    "description": "Change the predator from lions to serpents, and adjust associated descriptive details (breathing, dripping meat) to match serpents (slithering, forked tongues, cold scales, lack of dripping meat).",  
+    "category": "important actor"  
+  },  
+  {  
+    "preceding": "The lions stood looking at George and Lydia Hadley with terrible green-yellow eyes. “Watch out!” screamed Lydia.",  
+    "text": "The lions",  
+    "description": "Change the simulated predators to serpents; adjust verbs and adjectives to reflect serpentine movement and gaze rather than feline stance.",  
+    "category": "important actor"  
+  },  
+  {  
+    "preceding": "The lions came running at them. Lydia turned suddenly and ran.",  
+    "text": "The lions came running",  
+    "description": "Serpents do not run; change action to slithering or coiling and striking.",  
+    "category": "semantic"  
+  },  
+  {  
+    "preceding": "It seemed that, at a distance, for the past month, he had heard lions roaring, and noticed their strong smell which carried as far away as his study door.",  
+    "text": "lions roaring",  
+    "description": "Serpents do not roar; change to hissing or rattling; adjust smell description from 'strong smell' to a more serpentine odor (e.g., musky or earthy).",  
+    "category": "semantic"  
+  },  
+  {  
+    "preceding": "And then a roar of lions.",  
+    "text": "roar of lions",  
+    "description": "Serpents do not roar; change to hiss or rattle.",  
+    "category": "semantic"  
+  }  
+]

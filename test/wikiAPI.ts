@@ -2,10 +2,6 @@ import OpenAI from 'openai';
 import { prompts } from './prompts';
 import type { Wiki, EditSuggestion } from './types';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 async function callOpenAI(
   messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[]
 ): Promise<string> {

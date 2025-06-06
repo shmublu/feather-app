@@ -1,0 +1,80 @@
+[  
+  {  
+    "preceding": "They walked down the hall of their",  
+    "text": "HappyLife Home",  
+    "description": "The automated house with integrated robotic systems that cares for the Hadley family",  
+    "category": "important location"  
+  },  
+  {  
+    "preceding": "Well, said",  
+    "text": "George Hadley",  
+    "description": "Father of Wendy and Peter, husband of Lydia, protagonist who grows uneasy about the nursery",  
+    "category": "important actor"  
+  },  
+  {  
+    "preceding": "Wait a moment, you’ll see, said his wife.",  
+    "text": "Lydia Hadley",  
+    "description": "Mother of Wendy and Peter, wife of George, first to sense the nursery’s danger",  
+    "category": "important actor"  
+  },  
+  {  
+    "preceding": "And now the sounds: the thump of distant antelope feet on soft grassy ground, the papery rustle of",  
+    "text": "the African veldt",  
+    "description": "A three-dimensional simulated African savannah created by the nursery’s technology",  
+    "category": "important location"  
+  },  
+  {  
+    "preceding": "The lions stood looking at George and Lydia Hadley with terrible green-yellow eyes. “Watch out!” screamed",  
+    "text": "the lions",  
+    "description": "Simulated predators in the nursery that become instruments of real violence",  
+    "category": "important actor"  
+  },  
+  {  
+    "preceding": "“You’ve got to tell Wendy and Peter not to read any more on Africa.” “Of course–of course.” He patted her. “Promise?” “Sure.” And lock the nursery for a few days until I can get over this.” “You know how difficult Peter is about that.",  
+    "text": "locking the nursery",  
+    "description": "Event in which George confines the children’s access to the dangerous virtual room",  
+    "category": "important event"  
+  },  
+  {  
+    "preceding": "It seemed that, at a distance, for the past month, he had heard lions roaring, and noticed their strong smell which carried as far away as his study door. But, being busy, he had paid it no attention.",  
+    "text": "parents returning to the nursery alone",  
+    "description": "George re-enters the nursery by himself and confronts the unchanging African scene",  
+    "category": "important event"  
+  },  
+  {  
+    "preceding": "They walked down the hall together and threw the switch that killed",  
+    "text": "the nursery",  
+    "description": "The virtual room that creates immersive fantasies—shut down permanently by George and David McClean",  
+    "category": "important location"  
+  },  
+  {  
+    "preceding": "“My advice to you is to have the whole damn room torn down and your children brought to me every day during the next year for treatment.”",  
+    "text": "David McClean",  
+    "description": "Psychologist called in to evaluate the children’s mental patterns and the nursery’s effects",  
+    "category": "important actor"  
+  },  
+  {  
+    "preceding": "And he marched about the house turning off the voice clocks, the stoves, the heaters, the shoe cleaners, the body washer, the massager, and every other machine he could put his hand to.",  
+    "text": "shutting off all the machines",  
+    "description": "George’s revolt against the house’s automation, aiming to restore parental authority and real living",  
+    "category": "important event"  
+  },  
+  {  
+    "preceding": "Just then they heard the children calling, “Daddy, Mommy, come quick–quick!” They went downstairs in the air tube and ran down the hall. The children were nowhere in sight. “Wendy? Peter!” They ran into the nursery. The veldt was empty save for",  
+    "text": "parents locked in the nursery",  
+    "description": "Final tragic event: George and Lydia are trapped and killed by the lions in their own virtual creation",  
+    "category": "important event"  
+  },  
+  {  
+    "preceding": "“Well, here I am,” said",  
+    "text": "David McClean from the nursery door",  
+    "description": "Closing scene: The psychologist arrives to find the children alive amid the veldt, having used the nursery to destroy their parents",  
+    "category": "important event"  
+  },  
+  {  
+    "preceding": "There was a green, lovely forest, a lovely river, a purple mountain, high voices singing. And there was Rima the bird girl,",  
+    "text": "the forest scene with Rima",  
+    "description": "Alternate nursery simulation replacing the African veldt, showing the children’s power to reshape their environment",  
+    "category": "important location"  
+  }  
+]

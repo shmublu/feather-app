@@ -6,6 +6,8 @@ import matter from 'gray-matter';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import type { FictionData, Frontmatter } from '../../../types';
 
+import { create_client, generate_struct, generate_errors } from '../index';
+
 type ErrorResponse = {
   message: string;
 };
@@ -14,7 +16,8 @@ interface SaveResponse extends FictionData {
   message: string;
 }
 
-const contentFilePath = path.join(process.cwd(), 'src', 'data', 'fiction', 'prologue.md');
+const contentFilePath = path.join(process.cwd(), 'src', 'data', 'input.md');
+const structFilePath = path.join(process.cwd(), 'src', 'data', 'terms.json');
 
 export default async function handler(
   req: NextApiRequest,
@@ -25,6 +28,10 @@ export default async function handler(
       const fileContents = fs.readFileSync(contentFilePath, 'utf8');
       const { data, content } = matter(fileContents);
       const wordCount = content.split(/\s+/).filter(Boolean).length;
+
+      const client = await create_client();
+      const struct = await generate_struct(client, content, structFilePath);
+
       res.status(200).json({ frontmatter: data as Frontmatter, markdownContent: content, wordCount });
     } catch (error) {
       console.error('Error reading fiction content:', error);

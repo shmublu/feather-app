@@ -12,7 +12,7 @@ import {
   Crown,
   Calendar,
 } from "lucide-react";
-import terms from "../../data/wiki/terms.json";
+import terms from "../../data/terms.json";
 
 interface Term {
   description: string;
@@ -138,18 +138,18 @@ const SidebarFiction: React.FC<SidebarFictionProps> = ({
                 <ul className={styles.itemList}>
                   {item.items.map(([termName, termData]) => (
                     <li 
-                      key={termName} 
-                      className={`${styles.itemListEntry} ${selectedTermKey === termName ? styles.activeItem : ''}`}
-                      onClick={() => onSelectTerm(termName)}
+                      key={termData.text} 
+                      className={`${styles.itemListEntry} ${selectedTermKey === termData.text ? styles.activeItem : ''}`}
+                      onClick={() => onSelectTerm(termData.text)}
                       role="button"
                       tabIndex={0}
                       onKeyDown={(e) => {
                         if (e.key === 'Enter' || e.key === ' ') {
-                          onSelectTerm(termName);
+                          onSelectTerm(termData.text);
                         }
                       }}
                     >
-                      <div className={styles.termName}>{termName}</div>
+                      <div className={styles.termName}>{termData.text}</div>
                       {/* <div className={styles.termDescription}>{termData.description}</div> */}
                     </li>
                   ))}

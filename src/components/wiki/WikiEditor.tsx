@@ -18,18 +18,25 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
   const [currentTerm, setCurrentTerm] = useState<string>('');
   const [currentDescription, setCurrentDescription] = useState<string>('');
   const [currentCategory, setCurrentCategory] = useState<string>('');
+  const [currentPreceding, setCurrentPreceding] = useState<string>('');
   const [isAddingNew, setIsAddingNew] = useState<boolean>(false);
 
+
   useEffect(() => {
-    if (selectedTermKey && terms[selectedTermKey] && !isAddingNew) {
-      setCurrentTerm(selectedTermKey);
-      setCurrentDescription(terms[selectedTermKey].description || '');
-      setCurrentCategory(terms[selectedTermKey].category || '');
+    console.log('wikieditor terms', terms);
+    console.log('wikieditor selectedTermKey', selectedTermKey);
+    const hasTerm = terms.find(term => term.text === selectedTermKey);
+    if (selectedTermKey && hasTerm && !isAddingNew) {
+      setCurrentTerm(hasTerm.text);
+      setCurrentDescription(hasTerm.description || '');
+      setCurrentCategory(hasTerm.category || '');
+      setCurrentPreceding(hasTerm.preceding || '');
       setIsEditing(false);
     } else if (!selectedTermKey && !isAddingNew) {
       setCurrentTerm('');
       setCurrentDescription('');
       setCurrentCategory('');
+      setCurrentPreceding('');
       setIsEditing(false);
     }
   }, [selectedTermKey, terms, isAddingNew]);
@@ -40,25 +47,29 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
   };
 
   const handleSaveEdit = async () => {
+    console.log('wikieditor handleSaveEdit', currentTerm, selectedTermKey);
     if (!currentTerm.trim()) {
       alert("Term name cannot be empty.");
       return;
     }
-    const updatedTerms = { ...terms };
+    const updatedTerms = [...terms];
 
-    if (selectedTermKey && selectedTermKey !== currentTerm && terms[currentTerm]) {
+    const hasTerm = terms.find(term => term.text === currentTerm);
+    if (selectedTermKey && selectedTermKey !== currentTerm && hasTerm) {
       alert(`A term named "${currentTerm}" already exists.`);
       return;
     }
 
     if (selectedTermKey && selectedTermKey !== currentTerm) {
-      delete updatedTerms[selectedTermKey];
+      updatedTerms.splice(updatedTerms.findIndex(term => term.text === selectedTermKey), 1);
     }
     
-    updatedTerms[currentTerm] = {
+    updatedTerms.push({
+      text: currentTerm,
       description: currentDescription,
       category: currentCategory,
-    };
+      preceding: currentPreceding,
+    });
 
     const success = await onSave(updatedTerms);
     if (success) {
@@ -77,17 +88,18 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
     setCurrentTerm('');
     setCurrentDescription('');
     setCurrentCategory('');
+    setCurrentPreceding('');
   };
 
   const handleDelete = async () => {
     if (!selectedTermKey || !terms[selectedTermKey]) return;
     if (confirm(`Are you sure you want to delete "${selectedTermKey}"?`)) {
-      const updatedTerms = { ...terms };
-      delete updatedTerms[selectedTermKey];
+      const updatedTerms = [ ...terms ];
+      updatedTerms.splice(updatedTerms.findIndex(term => term.text === selectedTermKey), 1);
       const success = await onSave(updatedTerms);
       if (success) {
         setTerms(updatedTerms);
-        onSelectTerm(Object.keys(updatedTerms)[0] || null);
+        onSelectTerm(updatedTerms[0].text || null);
       }
     }
   };
@@ -95,10 +107,12 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
   const handleCancel = () => {
     setIsEditing(false);
     setIsAddingNew(false);
-    if (selectedTermKey && terms[selectedTermKey]) {
-      setCurrentTerm(selectedTermKey);
-      setCurrentDescription(terms[selectedTermKey].description);
-      setCurrentCategory(terms[selectedTermKey].category);
+    const hasTerm = terms.find(term => term.text === selectedTermKey);
+    if (selectedTermKey && hasTerm) {
+      setCurrentTerm(hasTerm.text);
+      setCurrentDescription(hasTerm.description);
+      setCurrentCategory(hasTerm.category);
+      setCurrentPreceding(hasTerm.preceding);
     } else {
       setCurrentTerm('');
       setCurrentDescription('');

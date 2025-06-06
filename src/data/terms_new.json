@@ -1,0 +1,116 @@
+[
+  {
+    "preceding": "They walked down the hall of their",
+    "text": "HappyLife Home",
+    "description": "The automated house purchased by the Hadleys",
+    "category": "Locations"
+  },
+  {
+    "preceding": "They walked down the hall of their HappyLife Home, which had cost them thirty thousand dollars with everything included. This house which clothed and fed and rocked them to sleep and played and sang and was good to them. Their approach was sensed by a hidden switch and the nursery light turned on when they came within ten feet of it. Similarly, behind them, in the halls, lights went on and off automatically as they left them behind.",
+    "text": "nursery",
+    "description": "The high-tech room that materializes scenes based on children’s thoughts",
+    "category": "Locations"
+  },
+  {
+    "preceding": "“George, I wish you’d look at the",
+    "text": "nursery",
+    "description": "The Hadleys’ automated children’s playroom",
+    "category": "Locations"
+  },
+  {
+    "preceding": "“George, I wish you’d look at the nursery.”\n\n“What’s wrong with it?”\n\n“I don’t know.”",
+    "text": "George Hadley",
+    "description": "Father of Wendy and Peter; husband of Lydia",
+    "category": "Characters"
+  },
+  {
+    "preceding": "“What’s wrong with it?”\n\n“I don’t know.”\n\n“Well, then.”\n\n“I just want you to look at it, is all, or call a psychologist in to look at it.”",
+    "text": "Lydia Hadley",
+    "description": "Mother of Wendy and Peter; wife of George",
+    "category": "Characters"
+  },
+  {
+    "preceding": "“Are you sure?” His wife sounded strangely nervous.\n\n“No, it’s a little late to be sure,” he said, with a laugh. “Nothing over there I can see but cleaned bone, and the vultures dropping for what’s left.”\n\n“Did you hear that scream?” she asked.",
+    "text": "Wendy",
+    "description": "Daughter of George and Lydia; co-user of the nursery",
+    "category": "Characters"
+  },
+  {
+    "preceding": "“Did you hear that scream?” she asked.\n\n“No.”\n\n“About a minute ago?”\n\n“No, sorry, no.”\n\nThe lions were coming.",
+    "text": "Peter",
+    "description": "Son of George and Lydia; co-user of the nursery",
+    "category": "Characters"
+  },
+  {
+    "preceding": "“I think I’ll have David McClean come tomorrow morning to have a look at Africa.”",
+    "text": "David McClean",
+    "description": "Family psychologist called to evaluate the nursery",
+    "category": "Characters"
+  },
+  {
+    "preceding": "The room was silent and empty. The walls were white and two dimensional. Now, as George and Lydia Hadley stood in the center of the room, the walls made a quiet noise and seemed to fall away into the distance. Soon an",
+    "text": "African veldt",
+    "description": "The savannah scene projected by the nursery",
+    "category": "Locations"
+  },
+  {
+    "preceding": "“But here it was!”\n\nAnd here were the lions now, fifteen feet away.",
+    "text": "lions",
+    "description": "Animated predators projected in the nursery’s African scene",
+    "category": "Characters"
+  },
+  {
+    "preceding": "They walked in on the children without knocking. The screams had stopped. The lions were feeding.",
+    "text": "screams",
+    "description": "Auditory effect triggered by the children’s violent thoughts",
+    "category": "Timeline"
+  },
+  {
+    "preceding": "“I locked it up,” explained the father, “and the children broke back into it during the night. I let them stay so they could form the patterns for you to see.”\n\nThere was a terrible screaming from the nursery.\n\n“There it is,” said George Hadley. “See what you make of it.”",
+    "text": "children broke back into it during the night",
+    "description": "Event in which Wendy and Peter secretly reopened the locked nursery",
+    "category": "Timeline"
+  },
+  {
+    "preceding": "They went to the control box together and threw the switch that killed the nursery.\n\nThe two children were so upset that they couldn’t control themselves. They screamed and danced around and threw things.",
+    "text": "nursery switch-off",
+    "description": "Event where the nursery and house machines are turned off by George",
+    "category": "Timeline"
+  },
+  {
+    "preceding": "Just then they heard the children calling, “Daddy, Mommy, come quick–quick!”\n\nThey went downstairs in the air tube and ran down the hall. The children were nowhere in sight. “Wendy? Peter!”",
+    "text": "parents’ deaths",
+    "description": "Off-stage event implied when George and Lydia are trapped and killed by the nursery lions",
+    "category": "Timeline"
+  },
+  {
+    "preceding": "“Well, here I am,” said David McClean from the nursery door. “Oh, hello.” He looked carefully at the two children seated in the center of the room eating a little picnic lunch. Beyond them he could see the water hole and the yellow veldt. Above was the hot sun. He began to sweat. “Where are your father and mother?”",
+    "text": "final scene",
+    "description": "David McClean discovers the children alive in the nursery after their parents’ demise",
+    "category": "Timeline"
+  },
+  {
+    "preceding": "They walked into the nursery and opened the door.\n\nThere was a green, lovely forest, a lovely river, a purple mountain, high voices singing. And there was",
+    "text": "forest",
+    "description": "Alternate scene projected by the nursery after Wendy’s change",
+    "category": "Locations"
+  },
+  {
+    "preceding": "“Run outside a moment, children,” said George Hadley. “No, don’t change the mental picture. Leave the walls as they are. Get!”\n\nWith the children gone, the two men stood studying the",
+    "text": "clearing",
+    "description": "Open space in the African scene where lions feed",
+    "category": "Locations"
+  },
+  {
+    "preceding": "How often had he seen Pegasus the winged horse flying in the sky ceiling, or seen explosions of red fireworks, or heard beautiful singing.",
+    "text": "Pegasus",
+    "description": "One of the various fantasy scenes the nursery can project",
+    "category": "Characters"
+  },
+  {
+    "text": "George Hadley",
+    "description": "Father of Wendy and Peter; husband of Lydia",
+    "category": "Characters",
+    "preceding": "“George, I wish you’d look at the nursery.”\n\n“What’s wrong with it?”\n\n“I don’t know.”"
+  }
+]

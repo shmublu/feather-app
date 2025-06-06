@@ -15,12 +15,13 @@ interface SidebarWikiProps {
 const SidebarWiki: React.FC<SidebarWikiProps> = ({ terms, onSelectTerm, selectedTermKey, isMobileMenuOpen }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-  const filteredTerms = Object.keys(terms)
-    .filter(key => 
-      key.toLowerCase().includes(searchTerm.toLowerCase()) || 
-      terms[key].description.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    .sort();
+  // reindex terms based on key "text"-id where id is index of term
+
+  const filteredTerms = terms.filter(term => 
+      term.category.toLowerCase().includes(searchTerm.toLowerCase())
+  ).sort();
+
+  console.log(filteredTerms);
 
   return (
     <aside className={`${styles.sidebar} ${isMobileMenuOpen ? styles.sidebarOpen : styles.sidebarClosed}`}>
@@ -39,13 +40,13 @@ const SidebarWiki: React.FC<SidebarWikiProps> = ({ terms, onSelectTerm, selected
       </div>
       <nav className={styles.navList}>
         {filteredTerms.length > 0 ? (
-          filteredTerms.map(key => (
+          filteredTerms.map(term => (
             <button
-              key={key}
-              className={`${styles.navItem} ${key === selectedTermKey ? styles.navItemActive : ''}`}
-              onClick={() => onSelectTerm(key)}
+              key={term.text}
+              className={`${styles.navItem} ${term.text === selectedTermKey ? styles.navItemActive : ''}`}
+              onClick={() => onSelectTerm(term.text)}
             >
-              {key}
+              {term.text}
             </button>
           ))
         ) : (

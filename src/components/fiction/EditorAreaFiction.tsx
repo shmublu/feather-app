@@ -6,7 +6,7 @@ import rehypeRaw from 'rehype-raw';
 import { Edit3, PlusCircle, X } from 'lucide-react';
 import styles from './EditorAreaFiction.module.css';
 import type { Frontmatter, KnownTerms } from '../../types';
-import errors from '../../data/wiki/errors.json';
+import errors from '../../data/errors.json';
 
 interface Error {
   preceding: string;
@@ -56,6 +56,8 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
 
     // Process terms
     const terms = Object.keys(knownTerms);
+    console.log('knownTerms', knownTerms);
+    console.log('terms', terms);
     if (terms.length > 0) {
       const escaped = terms.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
       const regex = new RegExp(`\\b(${escaped.join('|')})\\b`, 'gi');
@@ -93,7 +95,6 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
       }
     });
 
-    console.log('Processed content:', content); // Debug log
     return content;
   }, [editableContent, knownTerms]);
 
@@ -104,7 +105,6 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
 
       if (error) {
         const errorData = JSON.parse(decodeURIComponent(error));
-        console.log(errorData.description);
         const handleErrorHover = (e: React.MouseEvent<HTMLSpanElement>) => {
           onTermHover(errorData.description, e.clientX, e.clientY, 'yellow', errorData.description);
         };

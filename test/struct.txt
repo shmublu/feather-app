@@ -1,0 +1,98 @@
+[  
+  {
+    "preceding": "“George, I wish you’d look at the",
+    "text": "nursery",
+    "description": "The high-tech room that creates virtual reality environments reflecting the children's thoughts",
+    "category": "location"
+  },
+  {
+    "preceding": "They walked down the hall of their",
+    "text": "HappyLife Home",
+    "description": "The automated, all-inclusive house that cares for every need of the Hadley family",
+    "category": "location"
+  },
+  {
+    "preceding": "“Well,” said",
+    "text": "George Hadley",
+    "description": "Father and husband; co-owner of the nursery; grows uneasy with its realism",
+    "category": "actor"
+  },
+  {
+    "preceding": "“Wait a moment, you’ll see,” said his",
+    "text": "wife",
+    "description": "Lydia Hadley; mother and co-owner of the nursery; increasingly fearful of its power",
+    "category": "actor"
+  },
+  {
+    "preceding": "“Hello, Mom. Hello,",
+    "text": "Wendy",
+    "description": "Daughter of George and Lydia; one of the two children who obsessively use the nursery",
+    "category": "actor"
+  },
+  {
+    "preceding": "“Hello, Mom. Hello, Dad.”",
+    "text": "Peter",
+    "description": "Son of George and Lydia; shares Wendy’s fixation on the African veldt in the nursery",
+    "category": "actor"
+  },
+  {
+    "preceding": "“Am I on time?” said",
+    "text": "David McClean",
+    "description": "Psychologist called in to evaluate the nursery’s effects on the children",
+    "category": "actor"
+  },
+  {
+    "preceding": "The walls were white and two dimensional. Now, as George and Lydia Hadley stood in the center of the room, the walls made a quiet noise and seemed to fall away into the distance. Soon an",
+    "text": "African veldt",
+    "description": "Virtual savanna environment created by the nursery, complete with sights, sounds, and smells",
+    "category": "location"
+  },
+  {
+    "preceding": "Now hidden machines were beginning to blow a wind containing prepared smells toward the two people in the middle of the baked veldt. The hot straw smell of lion grass, the cool green smell of the hidden water hole, the strong dried blood smell of the animals, the smell of dust like red pepper in the hot air. And now the sounds: the thump of distant antelope feet on soft grassy ground, the papery rustle of vultures. A shadow passed through the sky. George Hadley looked up, and as he watched the shadow moved across his sweating face. “Horrible creatures,” he heard his wife say.",
+    "text": "vultures",
+    "description": "Birds in the African veldt environment, symbolizing death and decay",
+    "category": "actor"
+  },
+  {
+    "preceding": "“The lions.”",
+    "text": "lions",
+    "description": "Predators in the virtual veldt that eventually become instruments of real violence",
+    "category": "actor"
+  },
+  {
+    "preceding": "“Where are you going?”",
+    "text": "dining-room",
+    "description": "The automated room where meals are produced on demand by machines",
+    "category": "location"
+  },
+  {
+    "preceding": "“I think I’ll have",
+    "text": "Iowa",
+    "description": "Proposed vacation destination to escape the nursery and household machines",
+    "category": "location"
+  },
+  {
+    "preceding": "“Let’s get out of this sun,” he said. “This is a little too real. But",
+    "text": "event: first realization of nursery’s realism",
+    "description": "George’s initial unease at how lifelike the veldt environment has become",
+    "category": "event"
+  },
+  {
+    "preceding": "And then they heard the",
+    "text": "screams",
+    "description": "Unidentified cries indicating violence in the nursery, heightening parental alarm",
+    "category": "event"
+  },
+  {
+    "preceding": "They went to the control box together and",
+    "text": "threw the switch that killed the nursery",
+    "description": "Event where George and McClean deactivate the nursery, cutting off its simulations",
+    "category": "event"
+  },
+  {
+    "preceding": "And suddenly they realized why those other screams had sounded familiar.",
+    "text": "parents trapped and killed by lions",
+    "description": "Culminating event in which the nursery’s lions turn on the parents, actualizing the children’s murderous fantasies",
+    "category": "event"
+  }
+]

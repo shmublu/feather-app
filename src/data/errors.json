@@ -1,0 +1,56 @@
+[  
+  {  
+    "preceding": "Well, here it was!\n\nAnd here were the lions now, fifteen feet away.",  
+    "text": "lions",  
+    "description": "Animated predators projected in the nursery’s African scene",  
+    "category": "Characters"  
+  },  
+  {  
+    "preceding": "They walked in on the children without knocking. The screams had stopped. The lions were feeding.",  
+    "text": "screams",  
+    "description": "Auditory effect triggered by the children’s violent thoughts",  
+    "category": "Timeline"  
+  },  
+  {  
+    "preceding": "“I locked it up,” explained the father, “and the children broke back into it during the night. I let them stay so they could form the patterns for you to see.”\n\nThere was a terrible screaming from the nursery.\n\n“There it is,” said George Hadley. “See what you make of it.”",  
+    "text": "children broke back into it during the night",  
+    "description": "Event in which Wendy and Peter secretly reopened the locked nursery",  
+    "category": "Timeline"  
+  },  
+  {  
+    "preceding": "They went to the control box together and threw the switch that killed the nursery.\n\nThe two children were so upset that they couldn’t control themselves. They screamed and danced around and threw things.",  
+    "text": "nursery switch-off",  
+    "description": "Event where the nursery and house machines are turned off by George",  
+    "category": "Timeline"  
+  },  
+  {  
+    "preceding": "Just then they heard the children calling, “Daddy, Mommy, come quick–quick!”\n\nThey went downstairs in the air tube and ran down the hall. The children were nowhere in sight. “Wendy? Peter!”",  
+    "text": "parents’ deaths",  
+    "description": "Off-stage event implied when George and Lydia are trapped and killed by the nursery lions",  
+    "category": "Timeline"  
+  },  
+  {  
+    "preceding": "“Well, here I am,” said David McClean from the nursery door. “Oh, hello.” He looked carefully at the two children seated in the center of the room eating a little picnic lunch. Beyond them he could see the water hole and the yellow veldt. Above was the hot sun. He began to sweat. “Where are your father and mother?”",  
+    "text": "final scene",  
+    "description": "David McClean discovers the children alive in the nursery after their parents’ demise",  
+    "category": "Timeline"  
+  },  
+  {  
+    "preceding": "They walked into the nursery and opened the door.\n\nThere was a green, lovely forest, a lovely river, a purple mountain, high voices singing. And there was",  
+    "text": "forest",  
+    "description": "Alternate scene projected by the nursery after Wendy’s change",  
+    "category": "Locations"  
+  },  
+  {  
+    "preceding": "“Run outside a moment, children,” said George Hadley. “No, don’t change the mental picture. Leave the walls as they are. Get!”\n\nWith the children gone, the two men stood studying the lions sitting together in the distance, eating with great enjoyment whatever it was they had caught.",  
+    "text": "clearing",  
+    "description": "Open space in the African scene where lions feed",  
+    "category": "Locations"  
+  },  
+  {  
+    "preceding": "How often had he seen Pegasus the winged horse flying in the sky ceiling, or seen explosions of red fireworks, or heard beautiful singing.",  
+    "text": "Pegasus",  
+    "description": "One of the various fantasy scenes the nursery can project",  
+    "category": "Characters"  
+  }  
+]
