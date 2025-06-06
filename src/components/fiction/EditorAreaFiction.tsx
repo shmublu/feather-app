@@ -122,7 +122,7 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
 
       if (term) {
         const handleEnter = (e: React.MouseEvent<HTMLSpanElement>) => {
-          onTermHover(term, e.clientX, e.clientY, 'purple');
+          onTermHover(term, e.clientX, e.clientY, 'purple', '');
         };
         const handleClick = () => onTermClick?.(term);
         return (

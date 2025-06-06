@@ -6,7 +6,7 @@ import matter from 'gray-matter';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import type { FictionData, Frontmatter } from '../../../types';
 
-import { create_client, generate_struct, generate_errors } from '../index';
+import { create_client, generate_struct } from '../index';
 
 type ErrorResponse = {
   message: string;
@@ -30,7 +30,7 @@ export default async function handler(
       const wordCount = content.split(/\s+/).filter(Boolean).length;
 
       const client = await create_client();
-      const struct = await generate_struct(client, content, structFilePath);
+      await generate_struct(client, content, structFilePath);
 
       res.status(200).json({ frontmatter: data as Frontmatter, markdownContent: content, wordCount });
     } catch (error) {
