@@ -20,6 +20,7 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
   const [currentDescription, setCurrentDescription] = useState<string>('');
   const [currentCategory, setCurrentCategory] = useState<string>('');
   const [currentPreceding, setCurrentPreceding] = useState<string>('');
+  const [currentAliases, setCurrentAliases] = useState<string>('');
   const [isAddingNew, setIsAddingNew] = useState<boolean>(false);
 
 
@@ -31,15 +32,19 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
       setCurrentTitle(hasTerm.title || hasTerm.text);
       setCurrentText(hasTerm.text);
       setCurrentDescription(hasTerm.description || '');
+      setCurrentAliases(hasTerm.aliases?.join(', ') || '');
       setCurrentCategory(hasTerm.category || '');
       setCurrentPreceding(hasTerm.preceding || '');
+      setCurrentAliases(hasTerm.aliases?.join(', ') || '');
       setIsEditing(false);
     } else if (!selectedTermKey && !isAddingNew) {
       setCurrentTitle('');
       setCurrentText('');
       setCurrentDescription('');
+      setCurrentAliases('');
       setCurrentCategory('');
       setCurrentPreceding('');
+      setCurrentAliases('');
       setIsEditing(false);
     }
   }, [selectedTermKey, terms, isAddingNew]);
@@ -73,6 +78,7 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
       description: currentDescription,
       category: currentCategory,
       preceding: currentPreceding,
+      aliases: currentAliases.split(',').map(a => a.trim()).filter(Boolean),
     });
 
     const success = await onSave(updatedTerms);
@@ -92,6 +98,7 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
     setCurrentTitle('');
     setCurrentText('');
     setCurrentDescription('');
+    setCurrentAliases('');
     setCurrentCategory('');
     setCurrentPreceding('');
   };
@@ -117,12 +124,14 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
       setCurrentTitle(hasTerm.title || hasTerm.text);
       setCurrentText(hasTerm.text);
       setCurrentDescription(hasTerm.description);
+      setCurrentAliases(hasTerm.aliases?.join(', ') || '');
       setCurrentCategory(hasTerm.category);
       setCurrentPreceding(hasTerm.preceding);
     } else {
       setCurrentTitle('');
       setCurrentText('');
       setCurrentDescription('');
+      setCurrentAliases('');
       setCurrentCategory('');
     }
   };
@@ -195,6 +204,21 @@ const WikiEditor: React.FC<WikiEditorProps> = ({ terms, selectedTermKey, onSave,
             />
           ) : (
             <p className={styles.fieldValue}>{currentText}</p>
+          )}
+        </div>
+        <div className={styles.fieldGroup}>
+          <label htmlFor="term-aliases" className={styles.label}>Other Highlights:</label>
+          {isEditing ? (
+            <input
+              id="term-aliases"
+              type="text"
+              value={currentAliases}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCurrentAliases(e.target.value)}
+              placeholder="comma separated"
+              className="input-base"
+            />
+          ) : (
+            <p className={styles.fieldValue}>{currentAliases || '(none)'}</p>
           )}
         </div>
         <div className={styles.fieldGroup}>

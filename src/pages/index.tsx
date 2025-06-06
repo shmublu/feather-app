@@ -14,6 +14,7 @@ import type { FictionData, KnownTerms, WikiTerms, HoveredTermInfo } from '../typ
 const HomePage: NextPage = () => {
   const [fictionData, setFictionData] = useState<FictionData>({ frontmatter: {}, markdownContent: '', wordCount: 0 });
   const [knownTerms, setKnownTerms] = useState<KnownTerms>({});
+  const [aliasMap, setAliasMap] = useState<Record<string, string>>({});
   const [hoveredTermInfo, setHoveredTermInfo] = useState<HoveredTermInfo | null>(null);
   const [wikiTerms, setWikiTerms] = useState<WikiTerms>([]);
   const [selectedTermKey, setSelectedTermKey] = useState<string | null>(null);
@@ -41,10 +42,16 @@ const HomePage: NextPage = () => {
       const normalized = termsData.map(term => ({ ...term, title: term.title || term.text }));
       setWikiTerms(normalized);
       const formatted: KnownTerms = {};
+      const aliasMapping: Record<string, string> = {};
       normalized.forEach(term => {
         formatted[term.text] = term.description;
+        aliasMapping[term.text.toLowerCase()] = term.text;
+        term.aliases?.forEach(a => {
+          aliasMapping[a.toLowerCase()] = term.text;
+        });
       });
       setKnownTerms(formatted);
+      setAliasMap(aliasMapping);
     } catch (error) {
       console.error(error);
     }
@@ -99,13 +106,19 @@ const HomePage: NextPage = () => {
       const normalized = (result.terms as WikiTerms).map(t => ({ ...t, title: t.title || t.text }));
       setWikiTerms(normalized);
       const formatted: KnownTerms = {};
+      const aliasMapping: Record<string, string> = {};
       normalized.forEach(term => {
         formatted[term.text] = term.description;
+        aliasMapping[term.text.toLowerCase()] = term.text;
+        term.aliases?.forEach(a => {
+          aliasMapping[a.toLowerCase()] = term.text;
+        });
       });
       console.log('updatedTerms', updatedTerms);
       console.log('wikiTerms', result.terms);
       console.log('formatted', formatted);
       setKnownTerms(formatted);
+      setAliasMap(aliasMapping);
       alert('Wiki terms saved!');
       return true;
     } catch (error) {
@@ -190,6 +203,7 @@ const HomePage: NextPage = () => {
           initialContent={fictionData.markdownContent}
           initialFrontmatter={fictionData.frontmatter}
           knownTerms={knownTerms}
+          aliasMap={aliasMap}
           onTermHover={handleTermHover}
           onTermLeave={handleTermLeave}
           onTermClick={handleTermClick}

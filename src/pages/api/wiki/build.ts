@@ -27,7 +27,7 @@ export default async function handler(
       const parsed = JSON.parse(fs.readFileSync(termsFilePath, 'utf8'));
       if (Array.isArray(parsed)) terms = parsed;
     } catch {}
-    terms = terms.map(t => ({ ...t, title: t.title || t.text }));
+    terms = terms.map(t => ({ ...t, title: t.title || t.text, aliases: t.aliases || [] }));
     fs.writeFileSync(termsFilePath, JSON.stringify(terms, null, 2), 'utf8');
     fs.writeFileSync(newTermsFilePath, JSON.stringify(terms, null, 2), 'utf8');
     res.status(200).json(terms);

@@ -33,7 +33,7 @@ export default async function handler(
         const parsed = JSON.parse(fileContents);
         if (Array.isArray(parsed)) terms = parsed;
       } catch {}
-      terms = terms.map(t => ({ ...t, title: t.title || t.text }));
+      terms = terms.map(t => ({ ...t, title: t.title || t.text, aliases: t.aliases || [] }));
       res.status(200).json(terms);
     } catch (error) {
       console.error('Error reading wiki terms:', error);
@@ -48,7 +48,7 @@ export default async function handler(
       } catch {
         return res.status(400).json({ message: 'Invalid JSON payload.' });
       }
-      newTerms = newTerms.map(t => ({ ...t, title: t.title || t.text }));
+      newTerms = newTerms.map(t => ({ ...t, title: t.title || t.text, aliases: t.aliases || [] }));
       fs.writeFileSync(newTermsFilePath, JSON.stringify(newTerms, null, 2), 'utf8');
 
       const client = await create_client();

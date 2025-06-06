@@ -18,6 +18,8 @@ export interface WikiTerm {
   text: string;
   /** Display title shown in the UI */
   title: string;
+  /** Additional text variants that should highlight this term */
+  aliases?: string[];
   description: string;
   category: string;
   preceding?: string;

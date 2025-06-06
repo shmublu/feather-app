@@ -20,6 +20,7 @@ interface EditorAreaFictionProps {
   initialContent: string;
   initialFrontmatter: Frontmatter;
   knownTerms: KnownTerms;
+  aliasMap: Record<string, string>;
   onTermHover: (termKey: string, x: number, y: number, color: string, description: string) => void;
   onTermLeave: () => void;
   onTermClick?: (termKey: string) => void;
@@ -30,6 +31,7 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
   initialContent,
   initialFrontmatter,
   knownTerms,
+  aliasMap,
   onTermHover,
   onTermLeave,
   onTermClick,
@@ -64,12 +66,12 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
     };
     const matches: Match[] = [];
 
-    // Process terms
-    const terms = Object.keys(knownTerms);
-    console.log('knownTerms', knownTerms);
-    console.log('terms', terms);
-    if (terms.length > 0) {
-      const escaped = terms.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+    // Process terms using alias map for multiple highlights
+    const aliases = Object.keys(aliasMap);
+    console.log('aliasMap', aliasMap);
+    console.log('aliases', aliases);
+    if (aliases.length > 0) {
+      const escaped = aliases.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
       const regex = new RegExp(`\\b(${escaped.join('|')})\\b`, 'gi');
       let match;
       while ((match = regex.exec(content)) !== null) {
@@ -78,7 +80,7 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
           end: match.index + match[0].length,
           text: match[0],
           type: 'term',
-          data: match[0]
+          data: aliasMap[match[0].toLowerCase()]
         });
       }
     }
@@ -150,7 +152,7 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
     }
 
     return result;
-  }, [editableContent, knownTerms]);
+  }, [editableContent, aliasMap]);
 
   const markdownComponents = useMemo(() => ({
     span: ({ children, ...props }: React.HTMLAttributes<HTMLSpanElement> & { 'data-term'?: string; 'data-error'?: string }) => {
