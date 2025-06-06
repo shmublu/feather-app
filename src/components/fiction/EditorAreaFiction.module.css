@@ -170,3 +170,24 @@
   color: #d8b4fe; /* hover:text-purple-300 */
   text-decoration-color: #c084fc; /* hover:decoration-purple-400 */
 }
+
+.errorHighlight {
+  background-color: rgba(255, 255, 0, 0.3);
+  cursor: help;
+  padding: 0 2px;
+  border-bottom: 1px dashed #ffd700;
+  position: relative;
+  color: #f1f5f9; /* text-slate-100 */
+}
+
+.errorHighlight:hover {
+  background-color: rgba(255, 255, 0, 0.5);
+}
+
+/* Local class for the tooltip */
+.tooltipYellow :global(.tooltip) {
+  background-color: rgba(253, 224, 71, 0.9) !important; /* yellow-300 with opacity */
+  color: #1e293b !important; /* text-slate-800 */
+  border: 1px solid #fde047 !important; /* yellow-300 */
+  box-shadow: 0 2px 4px rgba(253, 224, 71, 0.2) !important;
+}

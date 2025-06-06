@@ -95,9 +95,9 @@ const HomePage: NextPage = () => {
     }
   };
 
-  const handleTermHover = useCallback((termKey: string, x: number, y: number) => {
-    const description = knownTerms[termKey] || 'No description available.';
-    setHoveredTermInfo({ term: termKey, description, x, y });
+  const handleTermHover = useCallback((termKey: string, x: number, y: number, style: 'purple' | 'yellow' = 'purple', description: string = '') => {
+    description = description || knownTerms[termKey] || 'No description available.';
+    setHoveredTermInfo({ term: termKey, description, x, y, style });
     setIsTooltipVisible(true);
   }, [knownTerms]);
 

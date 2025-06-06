@@ -32,4 +32,5 @@ export interface HoveredTermInfo {
   description: string;
   x: number;
   y: number;
+  style?: 'purple' | 'yellow';
 }

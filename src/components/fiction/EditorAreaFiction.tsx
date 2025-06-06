@@ -6,13 +6,21 @@ import rehypeRaw from 'rehype-raw';
 import { Edit3, PlusCircle, X } from 'lucide-react';
 import styles from './EditorAreaFiction.module.css';
 import type { Frontmatter, KnownTerms } from '../../types';
+import errors from '../../data/wiki/errors.json';
+
+interface Error {
+  preceding: string;
+  text: string;
+  description: string;
+  category: string;
+}
 
 // EditorAreaFiction Component Props
 interface EditorAreaFictionProps {
   initialContent: string;
   initialFrontmatter: Frontmatter;
   knownTerms: KnownTerms;
-  onTermHover: (termKey: string, x: number, y: number) => void;
+  onTermHover: (termKey: string, x: number, y: number, color: string, description: string) => void;
   onTermLeave: () => void;
   onTermClick?: (termKey: string) => void;
   onSave: (newMarkdownContent: string, newFrontmatter: Frontmatter) => Promise<void>;
@@ -43,19 +51,78 @@ const EditorAreaFiction: React.FC<EditorAreaFictionProps> = ({
   const wordCount = useMemo(() => editableContent.split(/\s+/).filter(Boolean).length, [editableContent]);
 
   const processedContent = useMemo(() => {
+    let content = editableContent;
+    console.log('Processing content:', content); // Debug log
+
+    // Process terms
     const terms = Object.keys(knownTerms);
-    if (terms.length === 0) return editableContent;
-    const escaped = terms.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
-    const regex = new RegExp(`\\b(${escaped.join('|')})\\b`, 'gi');
-    return editableContent.replace(regex, match => `<span data-term="${match}">${match}</span>`);
+    if (terms.length > 0) {
+      const escaped = terms.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+      const regex = new RegExp(`\\b(${escaped.join('|')})\\b`, 'gi');
+      content = content.replace(regex, match => `<span data-term="${match}">${match}</span>`);
+    }
+
+    // Process errors
+    errors.forEach((error: Error) => {
+      const escapedText = error.text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      
+      // Try to match with preceding context first
+      const fullPattern = `${error.preceding}\\s*${escapedText}`;
+      const fullRegex = new RegExp(fullPattern, 'gi');
+      
+      // Also try to match just the error text
+      const simpleRegex = new RegExp(`\\b${escapedText}\\b`, 'gi');
+      
+      if (fullRegex.test(content)) {
+        console.log('Found full match for:', error.text); // Debug log
+        content = content.replace(fullRegex, match => {
+          const parts = match.split(new RegExp(`(${escapedText})`, 'i'));
+          return `${parts[0]}<span data-error="${encodeURIComponent(JSON.stringify({
+            description: error.description,
+            category: error.category
+          }))}">${parts[1]}</span>`;
+        });
+      } else if (simpleRegex.test(content)) {
+        console.log('Found simple match for:', error.text); // Debug log
+        content = content.replace(simpleRegex, match => 
+          `<span data-error="${encodeURIComponent(JSON.stringify({
+            description: error.description,
+            category: error.category
+          }))}">${match}</span>`
+        );
+      }
+    });
+
+    console.log('Processed content:', content); // Debug log
+    return content;
   }, [editableContent, knownTerms]);
 
   const markdownComponents = useMemo(() => ({
-    span: ({ children, ...props }: React.HTMLAttributes<HTMLSpanElement> & { 'data-term'?: string }) => {
+    span: ({ children, ...props }: React.HTMLAttributes<HTMLSpanElement> & { 'data-term'?: string; 'data-error'?: string }) => {
       const term = props['data-term'];
+      const error = props['data-error'];
+
+      if (error) {
+        const errorData = JSON.parse(decodeURIComponent(error));
+        console.log(errorData.description);
+        const handleErrorHover = (e: React.MouseEvent<HTMLSpanElement>) => {
+          onTermHover(errorData.description, e.clientX, e.clientY, 'yellow', errorData.description);
+        };
+        return (
+          <span
+            {...props}
+            className={styles.errorHighlight}
+            onMouseEnter={handleErrorHover}
+            onMouseLeave={onTermLeave}
+          >
+            {children}
+          </span>
+        );
+      }
+
       if (term) {
         const handleEnter = (e: React.MouseEvent<HTMLSpanElement>) => {
-          onTermHover(term, e.clientX, e.clientY);
+          onTermHover(term, e.clientX, e.clientY, 'purple');
         };
         const handleClick = () => onTermClick?.(term);
         return (

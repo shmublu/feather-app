@@ -1,0 +1,20 @@
+[
+  {
+    "preceding": "bio-luminescent fireplace",
+    "text": "She",
+    "description": "Inconsistency - Da Solis was introduced as a male.",
+    "category": "Faction"
+  },
+  {
+    "preceding": "The spiritual leaders of the",
+    "text": "Solis Vero",
+    "description": "Wrong spelling. Solis Verio is the correct name of the faction.",
+    "category": "Faction"
+  },
+  {
+    "preceding": "The harsh training grounds of",
+    "text": "Garantum",
+    "description": "Wrong spelling. Garantuam is the correct name of the planet.",
+    "category": "Location"
+  }
+]

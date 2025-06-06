@@ -12,7 +12,7 @@ interface TooltipProps {
 const Tooltip: React.FC<TooltipProps> = ({ termInfo, isVisible }) => {
   if (!isVisible || !termInfo) return null;
 
-  const { term, description, x, y } = termInfo;
+  const { term, description, x, y, style = 'purple' } = termInfo;
 
   let top = y + 15;
   let left = x + 15;
@@ -28,12 +28,14 @@ const Tooltip: React.FC<TooltipProps> = ({ termInfo, isVisible }) => {
     }
   }
 
+  const tooltipClass = `${styles.tooltip} ${style === 'yellow' ? styles.yellowTooltip : ''}`;
+
   return (
     <div
-      className={styles.tooltip}
+      className={tooltipClass}
       style={{ top: `${top}px`, left: `${left}px` }}
     >
-      <h4 className={styles.termTitle}>{term}</h4>
+      {style === 'purple' && <h4 className={styles.termTitle}>{term}</h4>}
       <p className={styles.termDescription}>{description}</p>
     </div>
   );

@@ -1,8 +1,4 @@
 {
-  "Da Solis": {
-    "description": "Da Solis is the Celestial Priest of the Solis Verio branch, based on Rahka. Known for his stern demeanor and unwavering dedication to recovering sacred texts.",
-    "category": "Character"
-  },
   "Solis Verio": {
     "description": "One of the major factions within the Galactic Order, specializing in ancient lore, celestial navigation, and spiritual practices. They have a strong presence on planets like Rahka and Garantuam.",
     "category": "Faction"
@@ -26,5 +22,9 @@
   "sacred texts": {
     "description": "Ancient scriptures and documents holding significant religious or historical importance to the Solis Verio.",
     "category": "Item"
+  },
+  "Da Solis": {
+    "description": "Da Solis is the Celestial Priest of the Solis Verio branch, based on Rahka. Known for his stern demeanor and unwavering dedication to recovering sacred texts.",
+    "category": "Character"
   }
 }
