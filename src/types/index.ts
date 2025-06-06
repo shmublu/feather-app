@@ -16,11 +16,11 @@ export interface FictionData {
 export interface TermData {
   description: string;
   category: string;
+  links?: string[];
+  financial?: string;
 }
 
-export interface WikiTerms {
-  [key: string]: TermData;
-}
+export type WikiTerms = TermData[];
 
 // Used for the simpler key:description mapping in the fiction editor
 export interface KnownTerms {

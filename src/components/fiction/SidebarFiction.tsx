@@ -15,13 +15,14 @@ import {
 import terms from "../../data/terms.json";
 
 interface Term {
+  text: string;
   description: string;
   category: string;
+  links?: string[];
+  financial?: string;
 }
 
-interface TermsData {
-  [key: string]: Term;
-}
+type TermsData = Term[];
 
 interface SidebarFictionProps {
   isMobileMenuOpen: boolean;
@@ -50,17 +51,13 @@ const SidebarFiction: React.FC<SidebarFictionProps> = ({
 }) => {
   // Process terms data
   const termsData: TermsData = terms;
-  
-  // Get unique categories from the data
-  const categories = [...new Set(Object.values(termsData).map(term => term.category))];
-  
-  // Create categorized terms object
+
+  const categories = [...new Set(termsData.map(term => term.category))];
+
   const categorizedTerms = categories.reduce((acc, category) => {
-    acc[category] = Object.entries(termsData).filter(([_, term]) => 
-      term.category === category
-    );
+    acc[category] = termsData.filter(term => term.category === category);
     return acc;
-  }, {} as Record<string, [string, Term][]>);
+  }, {} as Record<string, Term[]>);
 
   // Define each accordion section with actual counts and appropriate icons
   const navItems = categories.map(category => ({
@@ -136,9 +133,9 @@ const SidebarFiction: React.FC<SidebarFictionProps> = ({
                 }
               >
                 <ul className={styles.itemList}>
-                  {item.items.map(([termName, termData]) => (
-                    <li 
-                      key={termData.text} 
+                  {item.items.map(termData => (
+                    <li
+                      key={termData.text}
                       className={`${styles.itemListEntry} ${selectedTermKey === termData.text ? styles.activeItem : ''}`}
                       onClick={() => onSelectTerm(termData.text)}
                       role="button"
